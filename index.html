@@ -57,6 +57,10 @@ nav.bot a.at{color:var(--ac)}
 .badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--es);color:#fff;font-size:11px;margin-left:3px}
 .vazio{text-align:center;padding:24px 8px;color:var(--mut)}
 details summary{cursor:pointer;font-weight:600}
+.chat{display:flex;flex-direction:column;gap:8px;margin:14px 0;padding:12px;background:#fff;border:1px solid var(--lin);border-radius:var(--r)}
+.bolha{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5}
+.bolha.eu{align-self:flex-end;background:var(--ac);color:#fff;border-bottom-right-radius:4px}
+.bolha.ia{align-self:flex-start;background:#efeee9;color:var(--tx);border-bottom-left-radius:4px}
 </style>
 </head>
 <body>
@@ -114,38 +118,46 @@ const SVG_PCTFE = `<svg viewBox="0 0 360 286" role="img" aria-label="As 5 partes
 
 const LINKS_U1 = [
   {t:'Como uma IA funciona? (vídeo, ~32 min)', f:'Hashtag Treinamentos · português', u:'https://www.hashtagtreinamentos.com/como-uma-ia-funciona-ia', n:'Explica sem jargão por que a IA prevê a próxima palavra, por que inventa e por que tende a concordar com você. Ótimo complemento da etapa 2.'},
-  {t:'O ChatGPT erra! Como identificar e corrigir alucinações (vídeo, ~10 min)', f:'Hashtag Treinamentos · português', u:'https://www.hashtagtreinamentos.com/o-chatgpt-erra-ia', n:'Exemplo real de erro e como pedir fontes e contexto para corrigir.'},
+  {t:'O ChatGPT erra! Como identificar e corrigir alucinações (vídeo, ~10 min)', f:'Hashtag Treinamentos · português', u:'https://www.hashtagtreinamentos.com/o-chatgpt-erra-ia', n:'Exemplo real de erro e de como pedir fontes e contexto para corrigir.'},
   {t:'O que é alucinação de IA', f:'Canaltech · artigo em português', u:'https://canaltech.com.br/inteligencia-artificial/o-que-e-alucinacao-de-ia/', n:'Leitura curta para fixar o conceito.'},
-  {t:'Advogado que usou ChatGPT no tribunal foi punido', f:'Olhar Digital · reportagem (2023)', u:'https://olhardigital.com.br/2023/07/14/pro/lembra-do-advogado-que-usou-chatgpt-no-tribunal-ele-foi-punido-por-isso/', n:'O caso real da etapa 1.'},
-  {t:'Advogado pede desculpas após ChatGPT criar casos falsos', f:'Correio Braziliense · reportagem (2023)', u:'https://www.correiobraziliense.com.br/mundo/2023/06/5100516-advogado-pede-desculpas-apos-chatgpt-criar-casos-falsos.html', n:'Mais detalhes do mesmo caso.'},
+  {t:'Advogado que usou ChatGPT no tribunal foi punido', f:'Olhar Digital · reportagem (2023)', u:'https://olhardigital.com.br/2023/07/14/pro/lembra-do-advogado-que-usou-chatgpt-no-tribunal-ele-foi-punido-por-isso/', n:'Caso real da etapa 1.'},
+  {t:'Juiz usa IA e sentencia com informações falsas; CNJ investiga', f:'Olhar Digital · reportagem (2023)', u:'https://olhardigital.com.br/2023/11/13/pro/ia-e-usada-por-juiz-que-sentencia-com-informacoes-falsas-cnj-investiga/', n:'O mesmo erro, aqui no Brasil (etapa 1).'},
+  {t:'Empresa que substituiu pessoas por IA volta atrás e contrata humanos', f:'Tecnoblog · reportagem (2025)', u:'https://tecnoblog.net/noticias/empresa-que-substituiu-pessoas-por-ia-volta-atras-e-contrata-humanos/', n:'O caso Klarna (etapa 2, "Delegar").'},
+  {t:'Companhia aérea perde processo porque chatbot mentiu para passageiro', f:'Tecnoblog · reportagem (2024)', u:'https://tecnoblog.net/noticias/companhia-aerea-perde-processo-porque-chatbot-mentiu-para-passageiro/', n:'O caso Air Canada (etapa 4, lente de gestão).'},
   {t:'Guia de prompts para iniciantes', f:'Learn Prompting · português', u:'https://learnprompting.org/pt/docs/basics/introduction', n:'Capítulos curtos e fáceis: instruções, exemplos, papéis, armadilhas.'},
-  {t:'Melhores práticas para pedir ao Claude', f:'Anthropic (oficial) · português · mais técnico', u:'https://platform.claude.com/docs/pt-BR/build-with-claude/prompt-engineering/claude-prompting-best-practices', n:'Guia oficial de quem faz o Claude. Leia só a parte "seja claro e direto" por enquanto.'},
+  {t:'Melhores práticas para pedir ao Claude', f:'Anthropic (oficial) · português · mais técnico', u:'https://platform.claude.com/docs/pt-BR/build-with-claude/prompt-engineering/claude-prompting-best-practices', n:'Guia oficial de quem faz o Claude. Por enquanto, leia só a parte "seja claro e direto".'},
   {t:'AI Fluency: Framework & Foundations (curso gratuito)', f:'Anthropic Academy · em inglês · opcional', u:'https://anthropic.skilljar.com/ai-fluency-framework-foundations', n:'De onde vêm os 4D desta unidade. Opcional, porque é em inglês.'},
-  {t:'Large Language Models explained briefly (vídeo, ~8 min)', f:'3Blue1Brown · em inglês · opcional', u:'https://www.3blue1brown.com/lessons/mini-llm', n:'Animação visual linda de como a IA funciona por dentro. Dá pra assistir só pelas imagens.'}
+  {t:'Large Language Models explained briefly (vídeo, ~8 min)', f:'3Blue1Brown · em inglês · opcional', u:'https://www.3blue1brown.com/lessons/mini-llm', n:'Animação visual de como a IA funciona por dentro. Dá para entender só pelas imagens.'}
 ];
 
 const UNIDADES = [
 {
- id:'u1', n:1, titulo:'Trabalhar com IA', sub:'Como a IA "pensa", como pedir bem e como conferir', status:'aberta', essencial:true,
- lentes:{ia:'Os 4D e o pedido em 5 partes', mc:'Padronizar pedidos = menos retrabalho', gestao:'Delegar a tarefa, nunca a responsabilidade'},
+ id:'u1', n:1, titulo:'Trabalhar com IA', sub:'Como a IA "pensa", como pedir, como ajustar e como conferir', status:'aberta', essencial:true, versao:'1.1',
+ lentes:{ia:'Os 4D, o pedido em 5 partes e o ajuste na conversa', mc:'Padronizar pedidos = menos retrabalho', gestao:'Delegar a tarefa, nunca a responsabilidade'},
  links: LINKS_U1,
  cartoes:[
   {id:'u1c1', es:true, p:'Quais são as 5 partes de um bom pedido para a IA? (dica: PCTFE)', r:'Papel, Contexto, Tarefa, Formato e Exemplo (com regras do que evitar). Frase para lembrar: "Peça Com Todos os Fatos Essenciais".'},
-  {id:'u1c2', es:true, p:'Por que a IA pode inventar uma informação com toda a confiança?', r:'Porque ela gera o texto mais provável pelo padrão que aprendeu, palavra por palavra. Ela não consulta se é verdade. Sem contexto ou sem saber, ela completa com algo que "parece certo".'},
-  {id:'u1c3', es:false, p:'Quais são os 4D da fluência em IA?', r:'Delegar (o que passar pra IA), Descrever (pedir bem), Discernir (avaliar a resposta) e Diligência (assumir a responsabilidade pelo que usa).'},
-  {id:'u1c4', es:true, p:'Cite 3 formas de conferir uma resposta da IA.', r:'1) Ver se bate com a realidade da operação. 2) Caçar o que costuma ser inventado: nomes, números, fórmulas, normas, citações. 3) Pedir crítica ("aponte 3 pontos fracos" / "o que você não tem certeza?"). 4) Testar pequeno antes de usar em tudo. 5) Fato importante: conferir em fonte oficial.'},
-  {id:'u1c5', es:false, p:'Qual foi o erro de processo do advogado de Nova York (2023)?', r:'Ele usou a própria IA para conferir a IA (perguntou se os casos eram reais). O certo era conferir numa fonte oficial antes de usar.'},
+  {id:'u1c2', es:true, p:'Por que a IA pode inventar uma informação com toda a confiança?', r:'Porque ela gera o texto mais provável pelo padrão que aprendeu, palavra por palavra. Ela não confere se é verdade. Sem contexto, ou quando não sabe, ela completa com algo que "parece certo".'},
+  {id:'u1c3', es:false, p:'Quais são os 4D da fluência em IA?', r:'Delegar (o que passar para a IA), Descrever (pedir bem), Discernir (avaliar a resposta) e Diligência (assumir a responsabilidade pelo que usa).'},
+  {id:'u1c4', es:true, p:'Cite 3 formas de conferir uma resposta da IA.', r:'1) Ver se bate com a realidade da operação. 2) Caçar o que costuma ser inventado: nomes, números, fórmulas, normas, citações. 3) Pedir crítica ("aponte 3 pontos fracos"). 4) Testar pequeno antes de usar em tudo. 5) Fato importante: conferir na fonte oficial, nunca na própria IA.'},
+  {id:'u1c5', es:false, p:'Qual foi o erro de processo do advogado de Nova York e do juiz no Acre?', r:'Os dois usaram o que a IA escreveu sem conferir numa fonte oficial. O advogado ainda pediu para a própria IA confirmar.'},
   {id:'u1c6', es:true, p:'Princípio de gestão: o que você pode delegar e o que não pode?', r:'Pode delegar a tarefa, nunca a responsabilidade. Quem delega continua respondendo pelo resultado, por isso combina a entrega e confere.'},
-  {id:'u1c7', es:false, p:'O que pedir para a IA e delegar para uma pessoa têm em comum?', r:'Os dois precisam de contexto, tarefa clara, formato da entrega e um exemplo, e nos dois você confere o resultado. Com a pessoa, acrescente o porquê da tarefa e espaço para perguntas.'},
-  {id:'u1c8', es:true, p:'Pela regra do curso, o que NUNCA entra num pedido para a IA com dados da empresa?', r:'Custos, preços, nomes de fornecedores e dados pessoais ou sensíveis. Use dados operacionais (quantidades, prazos, passos) ou fictícios.'}
+  {id:'u1c7', es:false, p:'O que pedir para a IA e delegar para uma pessoa têm em comum?', r:'Os dois precisam de contexto, tarefa clara, formato da entrega e um exemplo, e nos dois você confere o resultado. Com a pessoa, acrescente o porquê da tarefa, quando vai conferir e espaço para perguntas.'},
+  {id:'u1c8', es:true, p:'Pela regra do curso, o que NUNCA entra num pedido para a IA com dados da empresa?', r:'Custos, preços, nomes de fornecedores e dados pessoais ou sensíveis. Use dados operacionais (quantidades, prazos, passos) ou fictícios.'},
+  {id:'u1c9', es:true, p:'A primeira resposta da IA não ficou boa. Cite 3 formas de ajustar na conversa.', r:'1) Dizer exatamente o que mudar e o que manter. 2) Apontar o erro e dar o fato certo. 3) Pedir que ela faça perguntas antes de refazer. 4) Pedir 2 versões. 5) Pedir que ela critique a própria resposta. Se a conversa embolou: pedir um resumo e começar uma conversa nova com ele.'},
+  {id:'u1c10', es:false, p:'Qual é a lição do caso Klarna?', r:'Ela passou para a IA mais atendimento do que a IA fazia bem, olhando principalmente o custo, e a qualidade caiu. Decidir quanto delegar (o 1º D) é uma decisão de gestão, não só de economia.'},
+  {id:'u1c11', es:false, p:'No caso da Air Canada, quem foi responsabilizado pelo erro do chatbot?', r:'A própria empresa. O tribunal decidiu que ela responde por tudo o que está no site dela, inclusive pelo que a IA diz. A responsabilidade não passa para a ferramenta.'}
  ],
  etapas:[
  {n:1, titulo:'Caso real', tipo:'Ver acontecendo', essencial:true, blocos:[
-  {t:'html', h:`<p>Antes de qualquer teoria, dois casos. Leia com calma e pense: <b>o que deu errado?</b></p>
-  <div class="card"><span class="tag">Caso real</span><h3>Nova York, 2023: o advogado e os processos que não existiam</h3>
+  {t:'html', h:`<p>Antes de qualquer teoria, três histórias. Leia com calma e pense: <b>o que deu errado?</b></p>
+  <div class="card"><span class="tag">Caso real · EUA, 2023</span><h3>O advogado e os processos que não existiam</h3>
   <p>Um advogado com cerca de 30 anos de carreira usou o ChatGPT para achar decisões parecidas com o caso de um cliente que processava a companhia aérea Avianca.</p>
   <p>A IA entregou uma lista de decisões judiciais com nomes, datas e trechos. Pelo menos <b>seis delas nunca existiram</b>. Desconfiado, ele perguntou ao próprio ChatGPT se os casos eram reais, e a IA disse que sim.</p>
-  <p>O juiz descobriu. Os advogados e o escritório foram multados e o caso virou exemplo no mundo inteiro de como <b>não</b> usar IA.</p></div>
+  <p>O juiz descobriu. Os advogados e o escritório foram multados, e o caso virou exemplo no mundo inteiro de como <b>não</b> usar IA.</p></div>
+  <div class="card"><span class="tag">Caso real · Brasil, 2023</span><h3>No Brasil também: o juiz e a tese inventada</h3>
+  <p>Um juiz federal do Acre publicou uma sentença com trechos escritos pelo ChatGPT. O texto citava <b>decisões do STJ que não existem</b>. O juiz disse que foi um "erro corriqueiro" e que a pesquisa tinha sido feita por um assessor. O CNJ, órgão que fiscaliza os juízes, abriu uma investigação.</p>
+  <p class="mut">Repare na desculpa: "foi o assessor". Guarde isso para a lição de gestão no fim desta etapa.</p></div>
   <div class="card"><span class="tag cin">Caso de armazém</span><h3>O POP bonito que ninguém conseguia seguir</h3>
   <p>Um estoquista pede para a IA: <i>"faz um POP de recebimento"</i>. Em 10 segundos chega um documento bonito, com 12 passos. Ele imprime e cola no mural.</p>
   <p>Na semana seguinte, um colega novo tenta seguir e trava:</p>
@@ -153,16 +165,17 @@ const UNIDADES = [
   <li>o passo 7 manda "conferir a temperatura da carga", o que não se aplica aos produtos dali;</li>
   <li>não há nada sobre conferir o <b>número de série</b>, que é justamente o que mais dá problema naquele recebimento.</li></ul>
   <p class="mut">Este caso é fictício, mas acontece muito.</p></div>`},
-  {t:'campo', id:'u1-e1-reflexao', label:'Pense antes de ver a explicação: o que os dois casos têm em comum? A culpa foi da IA ou de como ela foi usada?', ph:'Escreva com suas palavras. Não existe resposta errada aqui: o objetivo é pensar antes.'},
+  {t:'campo', id:'u1-e1-reflexao', label:'Pense antes de ver a explicação: o que os três casos têm em comum? A culpa foi da IA ou de como ela foi usada?', ph:'Escreva com suas palavras. Não existe resposta errada aqui: o objetivo é pensar antes.'},
   {t:'revelar', id:'u1-e1-rev', exige:'u1-e1-reflexao', botao:'Ver o que aconteceu de fato', h:`
-  <div class="box"><p><b>1. Nos dois casos, a IA entregou algo com cara de certo.</b> Texto bem escrito passa confiança, mas a IA não "sabe" se o que escreveu é verdade. Ela monta o texto mais provável, e você vai ver como isso funciona na etapa 2.</p></div>
-  <div class="box"><p><b>2. O advogado errou na conferência.</b> Ele usou a própria IA para conferir a IA. O certo era checar numa fonte oficial (a base de processos do tribunal).</p></div>
-  <div class="box"><p><b>3. O estoquista errou no pedido e na conferência.</b> O pedido não tinha contexto (qual sistema, quais produtos, qual o problema real) e ninguém revisou antes de imprimir.</p></div>
-  <div class="box es"><p><b>4. A lição de gestão:</b> nos dois casos, a responsabilidade continuou sendo da pessoa, e não da IA. Guarde esta frase, porque ela vai voltar muitas vezes no curso: <b>"Você pode delegar a tarefa, nunca a responsabilidade."</b></p></div>
-  <p>Esta unidade ensina a evitar exatamente esses dois erros: <b>pedir mal</b> e <b>não conferir</b>.</p>`}
+  <div class="box"><p><b>1. Nos três casos, a IA entregou algo com cara de certo.</b> Texto bem escrito passa confiança, mas a IA não "sabe" se o que escreveu é verdade. Ela monta o texto mais provável, e você vai ver como isso funciona na etapa 2.</p></div>
+  <div class="box"><p><b>2. O advogado e o juiz erraram na conferência.</b> Os dois publicaram sem checar numa fonte oficial (a base de processos dos tribunais). O advogado ainda usou a própria IA para conferir a IA.</p></div>
+  <div class="box"><p><b>3. O estoquista errou no pedido e na conferência.</b> O pedido não tinha contexto (qual sistema, quais produtos, qual o problema real), e ninguém revisou antes de imprimir.</p></div>
+  <div class="box es"><p><b>4. A lição de gestão:</b> o juiz culpou o assessor, mas quem assinou a sentença foi ele. Em todos os casos, a responsabilidade continuou sendo de quem usou o resultado, e não da IA nem de quem ajudou. Guarde esta frase, porque ela vai voltar muitas vezes no curso: <b>"Você pode delegar a tarefa, nunca a responsabilidade."</b></p></div>
+  <p>Esta unidade ensina a evitar exatamente esses erros: <b>pedir mal</b>, <b>aceitar a primeira resposta</b> e <b>não conferir</b>.</p>`}
  ]},
- {n:2, titulo:'Exemplo resolvido', tipo:'Eu mostro passo a passo', essencial:true, blocos:[
-  {t:'html', h:`<h2>Parte 1: Como a IA escreve</h2>
+ {n:2, titulo:'Exemplo resolvido', tipo:'Eu mostro passo a passo, em 5 partes curtas', essencial:true, blocos:[
+  {t:'html', h:`<p class="mut">Esta etapa tem 5 partes curtas. Depois de cada uma há uma pergunta rápida: responda antes de seguir. Pode fazer em mais de uma sessão.</p>
+  <h2>Parte 1 de 5 · Como a IA escreve</h2>
   <p>Sabe o corretor do celular, que sugere a próxima palavra? A IA é isso, mas <b>muito</b> mais treinada: ela leu uma quantidade gigantesca de textos e aprendeu quais palavras costumam vir depois de quais.</p>
   <p>Quando você pede algo, ela escreve <b>uma palavra de cada vez</b>, sempre escolhendo entre as mais prováveis:</p>
   <div class="fig">${SVG_PROX}<div class="leg">Números ilustrativos, só para mostrar a ideia.</div></div>
@@ -170,19 +183,24 @@ const UNIDADES = [
   <p><b>Isso tem 3 consequências práticas:</b></p>
   <ol><li><b>Sem contexto, ela completa com o genérico.</b> Foi por isso que o POP falava em WMS e em temperatura: é o "armazém médio" da internet, e não o seu.</li>
   <li><b>Ela inventa mais em nomes, números, fórmulas, normas e citações</b>, porque são coisas que "parecem" certas mesmo quando estão erradas.</li>
-  <li><b>Ela tende a concordar com você.</b> Se você pergunta "isso está certo?", a resposta tende a ser sim. Peça crítica de propósito.</li></ol>
-
-  <h2>Parte 2: Os 4D, o mapa do bom uso</h2>
+  <li><b>Ela tende a concordar com você.</b> Se você pergunta "isso está certo?", a resposta tende a ser sim. Peça crítica de propósito.</li></ol>`},
+  {t:'check', id:'u1-k1', p:'Você pergunta à IA em qual endereço guardar um item que acabou de chegar, sem dar nenhuma informação sobre o seu armazém. O que é mais provável?',
+   o:['Ela avisa que não tem como saber','Ela sugere um endereço que parece real, com confiança','Ela consulta o seu ERP para descobrir','Ela se recusa a responder a pergunta'], c:1,
+   pq:'Sem contexto, ela completa o padrão com algo plausível, como o colega veterano chutando o endereço. Ela não acessa o seu sistema a menos que você dê a informação.'},
+  {t:'html', h:`<h2>Parte 2 de 5 · Os 4D, o mapa do bom uso</h2>
   <p>A Anthropic, empresa que cria o Claude, ensina a usar IA em 4 movimentos, os <b>4D</b>:</p>
   <div class="fig">${SVG_4D}</div>
   <p>Repare: <b>são as mesmas 4 coisas que um bom gestor faz com a equipe.</b> Decide o que delegar, explica bem, avalia a entrega e responde pelo resultado. Aprender IA aqui é treinar liderança ao mesmo tempo.</p>
-
-  <h2>Parte 3: Como pedir bem (o "Descrever")</h2>
+  <div class="card"><span class="tag">Caso real · Suécia, 2024–2025</span><h3>Klarna: quando delegar demais sai caro</h3>
+  <p>A Klarna, uma empresa de pagamentos, anunciou em 2024 que o assistente de IA dela fazia o trabalho de <b>700 atendentes</b>. Em 2025, o próprio presidente da empresa admitiu que tinham ido longe demais: o custo pesou demais na decisão, a <b>qualidade do atendimento caiu</b>, e a empresa voltou a contratar pessoas. Ele também disse que o cliente deve sempre poder falar com um humano, se quiser.</p>
+  <p class="mut">A IA não "falhou" sozinha. A decisão de quanto passar para ela foi da gestão.</p></div>`},
+  {t:'check', id:'u1-k2', p:'No caso da Klarna, qual dos 4D falhou primeiro?',
+   o:['Delegar: passaram para a IA mais do que ela fazia bem','Descrever: os pedidos para a IA estavam mal escritos','Diligência: a empresa culpou a IA pelo problema','Nenhum: o problema foi só tecnológico'], c:0,
+   pq:'A decisão de quanto delegar foi tomada olhando principalmente o custo. Discernir também falhou (demoraram para perceber a queda), mas o erro começou no "Delegar".'},
+  {t:'html', h:`<h2>Parte 3 de 5 · Como pedir bem (o "Descrever")</h2>
   <p>Um bom pedido tem 5 partes. Para lembrar: <b>PCTFE</b>, "<b>P</b>eça <b>C</b>om <b>T</b>odos os <b>F</b>atos <b>E</b>ssenciais".</p>
   <div class="fig">${SVG_PCTFE}</div>
-
-  <h2>Parte 4: Exemplo resolvido, passo a passo</h2>
-  <p>Vamos consertar o pedido do caso de armazém, uma parte de cada vez. Veja o que cada parte muda.</p>
+  <p><b>Exemplo resolvido:</b> vamos consertar o pedido do caso de armazém, uma parte de cada vez. Veja o que cada parte muda.</p>
   <div class="pedido">faz um POP de recebimento</div>
   <div class="passo"><div class="n">P</div><div><b>+ Papel:</b> "Você é um especialista em processos de armazém que escreve procedimentos simples para equipes operacionais."<br><span class="mut">O que muda: o tom e o nível. Sai o texto de consultoria e entra o texto de chão de armazém.</span></div></div>
   <div class="passo"><div class="n">C</div><div><b>+ Contexto:</b> "Somos uma empresa que fabrica e importa equipamentos médicos veterinários. O recebimento é feito por 2 pessoas. Usamos um ERP e não temos WMS. Os itens importados têm número de série, e o erro mais comum é dar entrada sem conferir o número de série."<br><span class="mut">O que muda: some o genérico (WMS, temperatura) e aparece o problema real.</span></div></div>
@@ -196,20 +214,43 @@ const UNIDADES = [
 <b>Formato:</b> No máximo 10 passos numerados, frases curtas, cada passo dizendo quem faz. No fim, um checklist de 5 itens para imprimir.
 <b>Exemplo e regras:</b> Exemplo de passo: "3. Conferente: compara o número de série da etiqueta com o da nota. Se divergir, separa na área de pendências." Se faltar alguma informação, me pergunte antes de escrever. Não invente sistemas nem normas.</div>
   <div class="box">Não precisa escrever "Papel:", "Contexto:" etc. no pedido de verdade. Os rótulos aqui são só para você enxergar as partes. Com o tempo, isso vira hábito.</div>
-
-  <h2>Parte 5: Como conferir (o "Discernir")</h2>
+  <div class="card es"><span class="tag es">Faça agora · 5 min</span><p>Abra o Claude e mande <b>o pedido ruim</b> ("faz um POP de recebimento") numa conversa. Depois mande <b>o pedido final</b> numa conversa nova. Compare as duas respostas.</p></div>`},
+  {t:'campo', id:'u1-e2-teste', label:'O que mudou de uma resposta para a outra? O que a resposta boa ainda errou ou inventou?', ph:'Ex.: a primeira falava de WMS; a segunda me fez perguntas antes...', l:4},
+  {t:'check', id:'u1-k3', p:'Qual parte do PCTFE faz a IA perguntar em vez de chutar?',
+   o:['Papel','Tarefa','Formato','Exemplo e regras ("se faltar informação, me pergunte")'], c:3,
+   pq:'As regras dizem à IA o que fazer quando falta informação. Sem isso, ela completa o buraco com algo genérico.'},
+  {t:'html', h:`<h2>Parte 4 de 5 · Ajustar a conversa (a habilidade que mais faz diferença)</h2>
+  <p>Mesmo com um bom pedido, <b>a primeira resposta é um rascunho</b>. Quem usa bem a IA não acerta de primeira: sabe corrigir a rota. Veja uma conversa de verdade, em 3 rodadas:</p>
+  <div class="chat">
+  <div class="bolha eu">(manda o pedido final da parte 3)</div>
+  <div class="bolha ia">Aqui está o POP com 14 passos... <i>[passo 9: "registrar no sistema de gestão de armazém"]</i>... e o checklist.</div>
+  <div class="bolha eu">Bom começo. Ajustes: 1) reduza para no máximo 10 passos, juntando os de conferência; 2) o passo 9 fala em sistema de armazém, mas a entrada é feita direto no ERP; 3) mantenha o checklist como está.</div>
+  <div class="bolha ia">Pronto: 10 passos, passo 9 corrigido para o ERP, checklist mantido.</div>
+  <div class="bolha eu">Agora revise como se fosse um conferente no primeiro dia de trabalho: o que ficaria confuso?</div>
+  <div class="bolha ia">Três pontos: "área de pendências" não está definida; não diz o que fazer se faltar volume; o passo 6 usa a sigla NF-e sem explicar.</div>
+  </div>
+  <p>Repare: na rodada 2 ele disse <b>o que mudar e o que manter</b>, e na rodada 3 pediu <b>crítica</b>. São técnicas. As principais:</p>
+  <div class="passo"><div class="n">1</div><div><b>Diga exatamente o que mudar e o que manter.</b><br><span class="mut">Ruim: "melhora isso". Bom: "reduza para 8 passos e mantenha o checklist".</span></div></div>
+  <div class="passo"><div class="n">2</div><div><b>Aponte o erro e dê o fato certo.</b><br><span class="mut">"O passo 4 fala em WMS. Não temos WMS: a entrada é no ERP. Corrija só esse passo."</span></div></div>
+  <div class="passo"><div class="n">3</div><div><b>Peça para ela perguntar antes.</b><br><span class="mut">"Antes de reescrever, me faça até 5 perguntas sobre o nosso recebimento."</span></div></div>
+  <div class="passo"><div class="n">4</div><div><b>Peça versões.</b><br><span class="mut">"Me dê 2 versões: uma curta para o mural e uma completa para o treinamento."</span></div></div>
+  <div class="passo"><div class="n">5</div><div><b>Peça crítica.</b><br><span class="mut">"Revise como se fosse o conferente novo: o que ficaria confuso?"</span></div></div>
+  <div class="box"><b>Quando começar uma conversa nova?</b> Quando a conversa ficou longa e a IA começa a misturar ou esquecer coisas. Antes de sair, peça: "resuma em 10 linhas o que decidimos". Depois cole esse resumo na conversa nova.</div>`},
+  {t:'check', id:'u1-k4', p:'A resposta veio boa, mas usa termos que um colega novo não entenderia. Qual é a melhor próxima mensagem?',
+   o:['"Ficou bom, mas dá para deixar tudo um pouco mais simples?"','"Está difícil de entender. Refaz tudo do zero, por favor."','"Troque os termos técnicos por palavras simples; mantenha os passos."','Começar uma conversa nova e mandar o mesmo pedido de antes'], c:2,
+   pq:'Diz exatamente o que mudar (os termos) e o que manter (os passos). "Mais simples" é vago, e refazer do zero joga fora o que já estava bom.'},
+  {t:'html', h:`<h2>Parte 5 de 5 · Como conferir (o "Discernir")</h2>
   <div class="chk">✅ <span><b>Bate com a realidade?</b> Leia como se fosse o colega novo. Dá para seguir no seu armazém?</span></div>
   <div class="chk">✅ <span><b>Cace os inventados:</b> nomes, números, fórmulas, normas, sistemas, leis. Cada um desses precisa ser confirmado.</span></div>
   <div class="chk">✅ <span><b>Peça a crítica:</b> "Aponte 3 pontos fracos desta resposta" ou "O que aqui você não tem certeza?"</span></div>
   <div class="chk">✅ <span><b>Teste pequeno:</b> use primeiro com um colega ou num recebimento antes de imprimir para todos.</span></div>
   <div class="chk">✅ <span><b>Fato importante → fonte oficial.</b> Nunca use a própria IA para conferir a IA (lembra do advogado?).</span></div>
-
   <div class="box es"><b>Regra de ouro dos dados (essencial):</b> nunca coloque custos, preços, nomes de fornecedores ou dados pessoais num pedido. Use dados operacionais (quantidades, prazos, passos) ou invente números parecidos.</div>`},
-  {t:'campo', id:'u1-e2-explique', label:'Para fixar: explique para um colega, com suas palavras, por que a IA às vezes inventa coisas.', ph:'Tente sem olhar o texto acima. Se travar, releia a comparação do colega veterano.'},
+  {t:'campo', id:'u1-e2-explique', label:'Para fixar: explique para um colega, com suas palavras, por que a IA às vezes inventa coisas e o que ele deve fazer a respeito.', ph:'Tente sem olhar o texto acima. Se travar, releia a comparação do colega veterano.', corrigir:true},
   {t:'links', titulo:'Assista e leia (escolha pelo menos 1 vídeo)', itens:LINKS_U1.slice(0,3)}
  ]},
  {n:3, titulo:'Fazer junto', tipo:'Você faz, eu dou dicas', essencial:false, blocos:[
-  {t:'html', h:`<p>Três exercícios, um para cada "D" que mais importa agora. Se travar, abra <b>uma dica por vez</b>. O exemplo de resposta só aparece depois que você escrever a sua.</p>`},
+  {t:'html', h:`<p>Quatro exercícios. Se travar, abra <b>uma dica por vez</b>. O exemplo de resposta só aparece depois que você escrever a sua. Quando terminar, peça a minha correção: eu leio o que você escreveu e respondo aqui no site.</p>`},
   {t:'exercicio', id:'u1-ex1', titulo:'Exercício 1 · Descrever', enun:'Reescreva este pedido usando as 5 partes (PCTFE):', pedido:'me ajuda com o inventário',
    dicas:['Antes de escrever: o que exatamente você quer? Planejar o inventário, organizar a contagem ou analisar as diferenças depois? Escolha <b>uma</b> coisa.',
    'Passe pelas 5 letras: Papel, Contexto, Tarefa, Formato, Exemplo. Quantas o pedido original tem? (Nenhuma!) Escreva uma linha para cada.',
@@ -232,7 +273,32 @@ Segundo a Resolução nº 47 do Conselho Nacional de Logística, o giro ideal pa
 3. Generalização falsa. Não existe giro ideal para qualquer empresa: depende do produto, do prazo de reposição e da demanda.
 4. "Quanto maior, sempre melhor" também é falso. Giro alto demais pode significar estoque curto demais e risco de faltar produto.`,
    checklist:['Achei o erro na fórmula','Desconfiei da fonte citada','Percebi a generalização ("qualquer empresa")','Percebi o "sempre melhor"']},
-  {t:'classificar', id:'u1-ex3', titulo:'Exercício 3 · Delegar', enun:'Para cada tarefa, decida: quem faz?',
+  {t:'exercicio', id:'u1-ex4', titulo:'Exercício 3 · Ajustar a conversa', enun:'Você pediu um checklist de expedição e a IA respondeu o texto abaixo. Escreva a sua PRÓXIMA mensagem na conversa para consertar a resposta.',
+   pedido:`Checklist de expedição:
+1. Verificar a temperatura do baú do caminhão
+2. Conferir o pedido no WMS
+3. Embalar o produto
+4. Lacrar a caixa
+5. Colocar a nota fiscal
+6. Conferir o número de série do equipamento
+7. Tirar foto da caixa lacrada
+8. Registrar a saída
+9. Avisar o cliente
+10. Arquivar o canhoto
+11. Conferir o endereço de entrega
+12. Separar acessórios
+(Contexto: vocês despacham equipamentos médicos veterinários, usam ERP e não têm WMS. O erro mais comum é a caixa sair sem manual.)`,
+   dicas:['Primeiro, liste para você mesmo tudo que está errado ou fora de lugar. Olhe também a <b>ordem</b> dos itens: tem coisa sendo feita depois da hora?',
+   'Use as técnicas da parte 4: diga exatamente o que mudar, dê o fato certo e diga o que manter. Mensagem vaga ("melhora isso") não vale.',
+   'Repare nos itens 4, 6 e 12: dá para conferir o número de série e separar acessórios depois de lacrar a caixa? E o manual, que é o erro mais comum, aparece?'],
+   exemplo:`Ajustes no checklist:
+1) Tire o item 1 (temperatura): não se aplica aos nossos produtos.
+2) No item 2, troque WMS por ERP.
+3) Corrija a ordem: conferir número de série, separar acessórios e conferir o endereço vêm ANTES de embalar e lacrar.
+4) Inclua "manual e acessórios dentro da caixa" logo antes de lacrar. É o nosso erro mais comum.
+5) Deixe no máximo 10 itens, em ordem cronológica. Mantenha a foto da caixa lacrada e o aviso ao cliente.`,
+   checklist:['Disse exatamente o que mudar (nada de "melhora isso")','Deu o fato certo (ERP, não WMS; temperatura não se aplica)','Corrigiu a ordem (conferir antes de lacrar)','Incluiu o manual','Disse o que manter']},
+  {t:'classificar', id:'u1-ex3', titulo:'Exercício 4 · Delegar', enun:'Para cada tarefa, decida: quem faz?',
    ops:['IA faz sozinha','IA ajuda, eu confiro','Só eu'],
    itens:[
     {x:'Sugerir nomes para organizar as pastas de arquivos do setor', c:0, pq:'Baixo risco e fácil de ver se ficou bom. Pode deixar com a IA.'},
@@ -241,7 +307,7 @@ Segundo a Resolução nº 47 do Conselho Nacional de Logística, o giro ideal pa
     {x:'Montar uma fórmula de planilha para calcular o giro', c:1, pq:'A IA é ótima nisso, mas você testa com números que já sabe o resultado antes de confiar.'},
     {x:'Traduzir um trecho de manual técnico do inglês', c:1, pq:'Tradução boa, mas termos técnicos e números precisam de conferência.'},
     {x:'Fazer a contagem física do inventário', c:2, pq:'Trabalho físico. A IA pode ajudar a planejar, mas não a contar.'},
-    {x:'Resumir em 5 pontos as minhas próprias anotações da semana', c:0, pq:'Material seu, uso só seu, baixo risco. Mesmo assim, você vai ler, então dá pra ver na hora se ficou bom.'}
+    {x:'Resumir em 5 pontos as minhas próprias anotações da semana', c:0, pq:'Material seu, uso só seu, baixo risco. Mesmo assim, você vai ler, então dá para ver na hora se ficou bom.'}
    ],
    fim:'Repare: quase tudo que <b>importa</b> cai em "IA ajuda, eu confiro". É exatamente como delegar para um colega novo: você passa a tarefa, mas confere a entrega.'}
  ]},
@@ -249,30 +315,35 @@ Segundo a Resolução nº 47 do Conselho Nacional de Logística, o giro ideal pa
   {t:'html', h:`<div class="card es"><span class="tag es">Missão da semana</span><h3>Use IA numa tarefa real sua</h3>
   <p>Escolha <b>1 tarefa</b> que você faz na mão e que envolve texto, organização ou planilha. Algumas ideias:</p>
   <ul><li>escrever ou atualizar um procedimento (POP);</li><li>montar uma fórmula de planilha;</li><li>organizar uma lista ou um checklist;</li><li>preparar uma mensagem para outro setor;</li><li>resumir anotações de uma reunião.</li></ul>
-  <p><b>Regra:</b> sem custos, preços, fornecedores ou dados pessoais. Se precisar, troque por dados fictícios.</p></div>
+  <p><b>Regra:</b> sem custos, preços, fornecedores ou dados pessoais. Se precisar, troque por dados fictícios.</p>
+  <p><b>Meta:</b> fazer pelo menos <b>2 rodadas de ajuste</b> na conversa (parte 4 da etapa 2).</p></div>
   <p>Registre abaixo. O registro é o que vira aprendizado, e mais tarde vira portfólio.</p>`},
   {t:'campo', id:'u1-e4-tarefa', label:'1. Qual tarefa você escolheu e por quê?', ph:'Ex.: atualizar o checklist de expedição, porque hoje cada um faz de um jeito.', l:3},
   {t:'campo', id:'u1-e4-pedido1', label:'2. Seu pedido (versão 1), com as 5 partes', ph:'Papel... Contexto... Tarefa... Formato... Exemplo e regras...'},
   {t:'campo', id:'u1-e4-entrega', label:'3. O que a IA entregou (resumo)', ph:'Em 2 ou 3 linhas.', l:3},
-  {t:'campo', id:'u1-e4-confere', label:'4. Como você conferiu? O que estava errado, genérico ou inventado?', ph:'Use o checklist do Discernir da etapa 2.'},
-  {t:'campo', id:'u1-e4-pedido2', label:'5. O que você mudou no pedido (versão 2) e o que melhorou?', ph:'Ex.: acrescentei o contexto do ERP e ela parou de falar de WMS.'},
-  {t:'campo', id:'u1-e4-result', label:'6. Resultado: quanto tempo levava antes e quanto levou agora? Vai usar de novo?', ph:'Estimativa já serve.', l:3},
+  {t:'campo', id:'u1-e4-confere', label:'4. Como você conferiu? O que estava errado, genérico ou inventado?', ph:'Use o checklist do Discernir (parte 5 da etapa 2).'},
+  {t:'campo', id:'u1-e4-pedido2', label:'5. Quais mensagens de ajuste você mandou e o que melhorou?', ph:'Copie suas mensagens de ajuste. Ex.: "troque WMS por ERP e mantenha o resto" → a IA corrigiu e...'},
+  {t:'campo', id:'u1-e4-result', label:'6. Resultado: quanto tempo levava antes e quanto levou agora? Vai usar de novo?', ph:'Estimativa já serve.', l:3, corrigir:true},
   {t:'html', h:`<h2>Lente de gestão: delegar para uma pessoa</h2>
-  <p><b>"Você pode delegar a tarefa, nunca a responsabilidade."</b> Agora use o mesmo PCTFE para passar uma tarefa a um <b>colega novo</b>, por exemplo a conferência de um recebimento.</p>
+  <div class="card"><span class="tag">Caso real · Canadá, 2022–2024</span><h3>Air Canada: "a culpa é do chatbot" não colou</h3>
+  <p>O chatbot do site da Air Canada disse a um passageiro que ele podia pedir um desconto por luto <b>depois</b> da viagem. A regra verdadeira não permitia isso. Quando o passageiro cobrou, a empresa argumentou no tribunal que o chatbot era "responsável pelas próprias ações".</p>
+  <p>O tribunal discordou: a empresa responde por tudo o que está no site dela, inclusive pelo que a IA diz, e teve que pagar a diferença ao passageiro.</p></div>
+  <p>É a mesma lição do juiz que culpou o assessor: <b>"Você pode delegar a tarefa, nunca a responsabilidade."</b> Agora use o mesmo PCTFE para passar uma tarefa a um <b>colega novo</b>, por exemplo a conferência de um recebimento.</p>
   <div class="box">Com pessoas, acrescente 3 coisas que a IA não precisa: <b>o porquê</b> da tarefa (motiva e ajuda a decidir sozinho), <b>quando</b> você vai conferir, e <b>espaço para perguntas</b>.</div>`},
-  {t:'campo', id:'u1-e4-delega', label:'7. Escreva como você delegaria essa tarefa para o colega novo', ph:'Como se fosse uma mensagem ou uma conversa de 2 minutos.'},
+  {t:'campo', id:'u1-e4-delega', label:'7. Escreva como você delegaria essa tarefa para o colega novo', ph:'Como se fosse uma mensagem ou uma conversa de 2 minutos.', corrigir:true},
   {t:'campo', id:'u1-e4-compara', label:'8. O que foi diferente entre pedir para a IA e pedir para a pessoa?', ph:'', l:3}
  ]},
- {n:5, titulo:'Dominei?', tipo:'Checagem sem consultar', essencial:true, blocos:[
-  {t:'html', h:`<p>Responda <b>sem consultar</b>. Para dominar a unidade: <b>pelo menos 5 de 6</b>. Se não passar, tudo bem: releia as explicações das que errou e tente de novo outro dia.</p>
+ {n:5, titulo:'Dominei?', tipo:'Checagem sem consultar · situações reais', essencial:true, blocos:[
+  {t:'html', h:`<p>Responda <b>sem consultar</b>. As perguntas são situações do dia a dia: o objetivo é ver se você sabe <b>aplicar</b>, não só lembrar. Para dominar a unidade: <b>pelo menos 6 de 7</b>. Se não passar, tudo bem: releia as explicações das que errou e tente de novo outro dia.</p>
   <p class="mut">Depois disso, as perguntas da unidade continuam voltando na aba Revisão (em 1, 3, 7 e 21 dias). É isso que faz o conteúdo ficar.</p>`},
-  {t:'quiz', id:'u1-quiz', min:5, qs:[
-   {p:'Por que a IA pode inventar uma informação com total confiança?', o:['Porque foi programada para enganar','Porque gera o texto mais provável pelo padrão, sem checar se é verdade','Porque estava sem internet','Isso só acontece com IAs gratuitas'], c:1, pq:'Ela completa o padrão palavra por palavra. "Parecer certo" e "ser certo" são coisas diferentes para ela.'},
-   {p:'Qual destes pedidos segue melhor o PCTFE?', o:['"Faz um checklist de expedição."','"Faz um checklist de expedição bem completo e profissional."','"Você é especialista em expedição. Despachamos equipamentos médicos veterinários por transportadora, e o erro mais comum é a caixa sair sem manual. Crie um checklist de expedição com até 8 itens, em lista para imprimir. Exemplo de item: \'☐ Manual dentro da caixa\'. Se faltar informação, pergunte."','"Me dá um checklist igual ao das grandes empresas."'], c:2, pq:'É o único com papel, contexto, tarefa, formato e exemplo. "Completo e profissional" não é contexto, é só adjetivo.'},
-   {p:'O advogado de Nova York perguntou ao ChatGPT se os casos eram reais. Qual foi o problema dessa conferência?', o:['Ele deveria ter perguntado duas vezes','Usou a própria IA para conferir a IA, em vez de uma fonte oficial','Ele deveria ter usado outra IA','Não houve problema: a IA errou sozinha'], c:1, pq:'A IA tende a confirmar o que já disse. Fato importante se confere em fonte oficial.'},
-   {p:'A IA te deu uma fórmula para calcular o estoque mínimo. Qual o melhor próximo passo?', o:['Usar direto, porque IA não erra conta','Testar a fórmula com números cujo resultado você já sabe','Pedir para a IA confirmar se está certa','Descartar, porque IA não serve para fórmula'], c:1, pq:'Teste pequeno com resultado conhecido é a forma mais rápida e segura de conferir.'},
-   {p:'Pela regra do curso, qual destes NÃO deve entrar num pedido para a IA?', o:['A quantidade em estoque de um item genérico','O prazo médio de importação','O preço de compra e o nome do fornecedor','O número de passos de um processo'], c:2, pq:'Custos, preços e fornecedores ficam fora. Os dados operacionais podem entrar.'},
-   {p:'"Você pode delegar a tarefa, nunca a responsabilidade." Na prática, isso significa que:', o:['É melhor não delegar nada','Quem delega continua respondendo pelo resultado, por isso combina a entrega e confere','A responsabilidade passa para quem recebeu a tarefa','Só vale para pessoas, não para a IA'], c:1, pq:'Vale para pessoas e para a IA: você passa o trabalho, mas o resultado continua sendo seu.'}
+  {t:'quiz', id:'u1-quiz2', min:6, qs:[
+   {p:'Você pergunta à IA o prazo médio de liberação de uma carga importada no porto, e ela responde: "12 dias, segundo dados da Receita Federal de 2025". O que fazer?', o:['Usar o número: ela citou de onde tirou','Perguntar para a própria IA se ela tem certeza','Tratar como hipótese e conferir na fonte ou com quem faz o processo','Ignorar: IA nunca acerta número nenhum'], c:2, pq:'Número com fonte citada parece confiável, mas é exatamente onde a IA mais inventa. Confira na fonte real ou com quem vive o processo (o despachante, por exemplo).'},
+   {p:'Pedido: "Você é analista de estoque. Monte um plano de inventário rotativo para 20 itens, em tabela, com uma linha de exemplo." Qual parte importante está faltando?', o:['Papel','Contexto','Formato','Exemplo'], c:1, pq:'Falta o contexto: quantas pessoas, qual sistema, se pode parar a operação, qual o objetivo. Sem isso, a IA monta o plano do "armazém médio".'},
+   {p:'A IA entregou um POP com 15 passos, e você queria no máximo 10. Qual é a melhor próxima mensagem?', o:['"Ficou muito grande, refaz por favor."','"Pode melhorar esse POP?"','Começar outra conversa com o mesmo pedido','"Reduza para no máximo 10 passos, juntando os de conferência; mantenha o resto."'], c:3, pq:'Diz exatamente o que mudar, como mudar e o que manter. As outras opções são vagas ou jogam fora o que já estava bom.'},
+   {p:'Qual destas tarefas você deixaria a IA fazer sozinha, sem revisar?', o:['Resposta ao cliente sobre o prazo de entrega','Fórmula de reposição que vai rodar todo mês','Nomes para as abas de uma planilha interna','Tradução do manual que vai junto do equipamento'], c:2, pq:'É a única de baixo risco e fácil de avaliar na hora. As outras vão para o cliente ou alimentam decisões: a IA ajuda, mas você confere.'},
+   {p:'A IA citou uma norma técnica para justificar um procedimento. Qual é a melhor forma de conferir?', o:['Procurar a norma na fonte oficial (ex.: catálogo da ABNT)','Perguntar para a IA se a norma existe mesmo','Pedir para outra IA confirmar a informação','Aceitar, se o número da norma parecer real'], c:0, pq:'Fato importante se confere em fonte oficial. Perguntar à IA (a mesma ou outra) repete o erro do advogado.'},
+   {p:'Você quer ajuda da IA com a planilha de reposição, que tem colunas de SKU, saídas, estoque, custo unitário e fornecedor. O que fazer antes de enviar?', o:['Enviar inteira: quanto mais dado, melhor a análise','Tirar custo e fornecedor e, se precisar, trocar nomes por códigos','Enviar inteira, mas só se for para o Claude','Desistir: IA não serve para planilhas'], c:1, pq:'Os dados operacionais bastam para a análise. Custo e fornecedor ficam fora, pela regra do curso.'},
+   {p:'Você delegou a conferência de um recebimento a um colega novo, e ele deu entrada errada. Pelo princípio da unidade, qual é a melhor postura?', o:['A responsabilidade é dele, porque foi ele quem fez','Parar de delegar e fazer tudo sozinho daqui pra frente','Passar a tarefa para um colega mais experiente','Assumir sua parte, rever como explicou e combinar uma conferência no início'], c:3, pq:'Delegar a tarefa não transfere a responsabilidade. Revisar como você passou a tarefa (contexto, porquê, conferência) é o que evita o próximo erro.'}
   ]}
  ]}
  ]
@@ -294,10 +365,11 @@ const hoje=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth(
 const somaDias=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const dataBR=s=>{if(!s)return'';const [a,m,d]=s.slice(0,10).split('-');return d+'/'+m+'/'+a};
 
-function novo(){return{versao:1,atualizadoEm:0,etapas:{},resp:{},checks:{},dicas:{},revel:{},classif:{},quiz:{},dominio:{},cartoes:{},notas:[]}}
+function novo(){return{versao:1,atualizadoEm:0,etapas:{},resp:{},checks:{},dicas:{},revel:{},classif:{},quiz:{},pontos:{},correcao:{},dominio:{},cartoes:{},notas:[]}}
 function lerLocal(){try{const d=JSON.parse(localStorage.getItem(K_DADOS));return Object.assign(novo(),d||{})}catch(e){return novo()}}
 function lerCfg(){try{return JSON.parse(localStorage.getItem(K_CFG))||null}catch(e){return null}}
 let D=lerLocal(), CFG=lerCfg();
+let C={};try{C=JSON.parse(localStorage.getItem('ge_corr'))||{}}catch(e){C={}}
 
 // ---------- salvar + sincronizar com o cofre (repositório privado) ----------
 let tSync=null, sha=null, enviando=false, pendente=false;
@@ -308,8 +380,8 @@ function b64enc(str){const by=new TextEncoder().encode(str);let s='';for(let i=0
 function b64dec(b){const bin=atob(b.replace(/\s/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)}
 function api(path,opt={}){return fetch('https://api.github.com/repos/'+encodeURIComponent(CFG.dono)+'/'+encodeURIComponent(CFG.repo)+'/contents/'+path,
  Object.assign({cache:'no-store'},opt,{headers:Object.assign({'Authorization':'Bearer '+CFG.chave,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},opt.headers||{})}))}
-async function baixar(){ // retorna {dados, sha} ou null se ainda não existe
- const r=await api(ARQ);
+async function baixar(arq){ // retorna {dados, sha} ou null se ainda não existe
+ const r=await api(arq||ARQ);
  if(r.status===404)return null;
  if(!r.ok)throw new Error(r.status);
  const j=await r.json();return{dados:JSON.parse(b64dec(j.content)),sha:j.sha}}
@@ -331,6 +403,7 @@ async function puxar(){
  if(!CFG)return;
  status('sv','Conferindo…');
  try{
+  try{const co=await baixar('correcoes.json');if(co&&JSON.stringify(co.dados)!==JSON.stringify(C)){C=co.dados||{};localStorage.setItem('ge_corr',JSON.stringify(C));render(true)}}catch(e){}
   const rem=await baixar();
   if(!rem){sha=null;await enviar();return}
   sha=rem.sha;
@@ -393,7 +466,11 @@ function telaEtapa(u,n){
 
 function bloco(b){
  if(b.t==='html')return b.h;
- if(b.t==='campo')return`<label class="cmp" for="${b.id}">${b.label}</label><textarea id="${b.id}" data-resp="${b.id}" rows="${b.l||5}" placeholder="${esc(b.ph)}">${esc(D.resp[b.id])}</textarea>`;
+ if(b.t==='campo')return`<label class="cmp" for="${b.id}">${b.label}</label><textarea id="${b.id}" data-resp="${b.id}" rows="${b.l||5}" placeholder="${esc(b.ph)}">${esc(D.resp[b.id])}</textarea>`+(b.corrigir?boxCorrecao(b.id):(C[b.id]?boxCorrecao(b.id):''));
+ if(b.t==='check'){const r=D.pontos[b.id];
+  return`<div class="card" style="border-color:#9fd3ca"><span class="tag">Pergunta rápida</span><p><b>${esc(b.p)}</b></p>`+b.o.map((o,j)=>{let cl='';if(r!==undefined){if(j===b.c)cl='certa';else if(r===j)cl='errada'}
+   return`<label class="op ${cl}"><input type="radio" name="${b.id}" value="${j}" ${r===j?'checked':''} ${r!==undefined?'disabled':''}>${esc(o)}</label>`}).join('')+
+   (r!==undefined?`<div class="${r===b.c?'box ok':'box er'}" style="font-size:14px">${r===b.c?'✓ Isso. ':'✗ Não foi dessa vez. '}${esc(b.pq)}</div>`:`<button class="btn peq" onclick="responderCheck('${b.id}')">Responder</button><div class="erro" id="er-${b.id}"></div>`)+`</div>`}
  if(b.t==='revelar'){const ab=D.revel[b.id];return`<div id="rv-${b.id}">${ab?b.h:`<button class="btn sec" onclick="revelar('${b.id}','${b.exige}')">${esc(b.botao)}</button><div class="erro" id="er-${b.id}"></div>`}</div>`}
  if(b.t==='links')return`<h2>${esc(b.titulo)}</h2>`+linksHTML(b.itens);
  if(b.t==='exercicio'){
@@ -405,7 +482,7 @@ function bloco(b){
   h+=`<h3>Confira você mesmo</h3>`+b.checklist.map((c,i)=>`<label class="chk"><input type="checkbox" data-chk="${b.id}" data-i="${i}" ${ck[i]?'checked':''}><span>${esc(c)}</span></label>`).join('');
   h+=D.revel[b.id]?`<div class="box ok"><b>Um exemplo de resposta</b> (o seu não precisa ser igual):<div class="pedido" style="margin-top:8px">${esc(b.exemplo)}</div></div>`
    :`<button class="btn sec peq" onclick="revelar('${b.id}','${b.id}')">Me mostra um exemplo de resposta</button><div class="erro" id="er-${b.id}"></div>`;
-  return h+`</div>`}
+  return h+boxCorrecao(b.id)+`</div>`}
  if(b.t==='classificar'){
   const r=D.classif[b.id]||{}, conf=r._conf;
   let h=`<div class="card"><span class="tag">${esc(b.titulo)}</span><p><b>${esc(b.enun)}</b></p>`;
@@ -430,6 +507,24 @@ function bloco(b){
   else h+=`<button class="btn" onclick="corrigirQuiz('${b.id}')">Corrigir</button><div class="erro" id="er-${b.id}"></div>`;
   return h+`</div>`}
  return''}
+
+// ---------- correção pelo Claude ----------
+function boxCorrecao(id){
+ const c=C[id], pedido=D.correcao[id];
+ let h='<div id="cr-'+id+'">';
+ if(c)h+=`<div class="box ok"><b>Correção do Claude</b> <span class="mut">· ${esc(c.em||'')}</span><div class="nota" style="margin-top:6px">${esc(c.texto)}</div></div>`;
+ if(pedido&&!(c&&c.ts&&c.ts>pedido))h+=`<div class="box">Correção pedida em ${new Date(pedido).toLocaleDateString('pt-BR')}. Quando quiser, me diga no chat: <b>"corrige minhas respostas"</b>. A correção aparece aqui.</div>`;
+ else h+=`<button class="btn sec peq" onclick="pedirCorrecao('${id}')">${c?'Pedir nova correção':'Pedir correção ao Claude'}</button>`;
+ h+=`<button class="btn sec peq" onclick="copiarCorrecao('${id}')">Copiar para colar no chat</button><div class="erro" id="ec-${id}"></div></div>`;
+ return h}
+function pedirCorrecao(id){if(!(D.resp[id]||'').trim()){$('#ec-'+id).textContent='Escreva a sua resposta primeiro.';return}D.correcao[id]=Date.now();salvar();render(true)}
+function copiarCorrecao(id){const r=(D.resp[id]||'').trim();if(!r){$('#ec-'+id).textContent='Escreva a sua resposta primeiro.';return}
+ const ac=acharBloco(id);const en=ac?String(ac.b.enun||ac.b.label||'').replace(/<[^>]+>/g,''):'';const pd=ac&&ac.b.pedido?'\nTexto do exercício:\n'+ac.b.pedido:'';
+ const t='Corrija minha resposta do curso (Unidade '+(ac?ac.u.n:'')+', '+id+').\nEnunciado: '+en+pd+'\n\nMinha resposta:\n'+r;
+ const ok=()=>{$('#ec-'+id).style.color='var(--ok)';$('#ec-'+id).textContent='Copiado! Cole no chat com o Claude.'};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,()=>fallbackCopy(t,ok));else fallbackCopy(t,ok)}
+function fallbackCopy(t,ok){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){}a.remove()}
+function responderCheck(id){const m=document.querySelector(`input[name="${id}"]:checked`);if(!m){$('#er-'+id).textContent='Escolha uma opção antes de responder.';return}D.pontos[id]=Number(m.value);salvar();render(true)}
 
 // ---------- ações ----------
 function acharBloco(id){for(const u of UNIDADES)for(const e of(u.etapas||[]))for(const b of e.blocos)if(b.id===id)return{u,e,b};return null}
