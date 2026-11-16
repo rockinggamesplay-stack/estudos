@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<title>Meu Estudo · Gestão Moderna</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1f2328;--mut:#5f6368;--lin:#e3e1da;--ac:#0f766e;--ac2:#e6f4f1;--es:#b45309;--es2:#fdf3e2;--ok:#15803d;--ok2:#e8f5ec;--er:#b91c1c;--er2:#fdecec;--r:12px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:84px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--lin)}
+.top{max-width:760px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.marca{font-weight:600;font-size:15px}
+.sync{font-size:12px;padding:3px 10px;border-radius:99px;background:#eee;color:var(--mut);white-space:nowrap;cursor:pointer;border:0}
+.sync.ok{background:var(--ok2);color:var(--ok)}.sync.er{background:var(--er2);color:var(--er)}.sync.sv{background:var(--ac2);color:var(--ac)}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:22px;line-height:1.3;margin:4px 0 6px}h2{font-size:19px;line-height:1.35;margin:26px 0 8px}h3{font-size:16px;margin:18px 0 6px}
+p{margin:8px 0}a{color:var(--ac)}
+.mut{color:var(--mut);font-size:14px}
+.card{background:var(--card);border:1px solid var(--lin);border-radius:var(--r);padding:14px 16px;margin:12px 0}
+.card.link{display:block;text-decoration:none;color:inherit}
+.card.es{border-color:#f0c88a;background:var(--es2)}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--ac2);color:var(--ac);margin-right:4px;vertical-align:middle}
+.tag.es{background:var(--es2);color:var(--es);border:1px solid #f0c88a}
+.tag.ok{background:var(--ok2);color:var(--ok)}.tag.cin{background:#eee;color:var(--mut)}
+.barra{height:8px;background:#ecebe6;border-radius:99px;overflow:hidden;margin-top:8px}.barra i{display:block;height:100%;background:var(--ac)}
+.btn{display:inline-block;font:inherit;font-size:15px;font-weight:600;padding:10px 16px;border-radius:10px;border:1px solid var(--ac);background:var(--ac);color:#fff;cursor:pointer;margin:6px 6px 0 0;text-decoration:none}
+.btn.sec{background:#fff;color:var(--ac)}.btn.peq{font-size:13px;padding:6px 12px}.btn.perigo{background:#fff;color:var(--er);border-color:var(--er)}
+.btn:disabled{opacity:.45;cursor:default}
+textarea,input[type=text],input[type=password],select{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--lin);border-radius:10px;background:#fff;color:var(--tx)}
+textarea{min-height:96px;resize:vertical}
+label.cmp{display:block;font-weight:600;font-size:15px;margin:14px 0 6px}
+.erro{color:var(--er);font-size:13px;margin-top:4px}
+.box{border-left:4px solid var(--ac);background:var(--ac2);padding:10px 14px;margin:12px 0;border-radius:0}
+.box.es{border-color:var(--es);background:var(--es2)}.box.ok{border-color:var(--ok);background:var(--ok2)}.box.er{border-color:var(--er);background:var(--er2)}
+.pedido{background:#1f2328;color:#f3f3f0;border-radius:10px;padding:12px 14px;font-size:14px;white-space:pre-wrap;margin:10px 0}
+.pedido b{color:#7dd3c0}
+.passo{display:flex;gap:12px;margin:14px 0}.passo .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.fig{margin:14px 0;text-align:center}.fig svg{width:100%;max-width:520px;height:auto}.fig .leg{font-size:13px;color:var(--mut);margin-top:4px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:6px 0;font-size:15px}.chk input{margin-top:5px;width:18px;height:18px;flex:0 0 18px}
+.dica{background:#fff8e6;border:1px dashed #e7c46a;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:15px}
+.etapas a{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.etapas .ic{flex:0 0 34px;height:34px;border-radius:50%;border:2px solid var(--lin);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--mut);background:#fff}
+.etapas .feito .ic{background:var(--ok);border-color:var(--ok);color:#fff}
+.nav-et{display:flex;justify-content:space-between;gap:8px;margin-top:24px;flex-wrap:wrap}
+.op{display:block;border:1px solid var(--lin);border-radius:10px;padding:10px 12px;margin:6px 0;background:#fff;cursor:pointer;font-size:15px}
+.op input{margin-right:8px}.op.certa{border-color:var(--ok);background:var(--ok2)}.op.errada{border-color:var(--er);background:var(--er2)}
+.lk{display:block;padding:12px 14px;border:1px solid var(--lin);border-radius:10px;margin:8px 0;background:#fff;text-decoration:none;color:inherit}
+.lk b{color:var(--ac)}.lk span{display:block;font-size:13px;color:var(--mut)}
+.nota{white-space:pre-wrap}
+nav.bot{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--lin);display:flex;justify-content:center;z-index:6;padding-bottom:env(safe-area-inset-bottom)}
+nav.bot a{flex:1;max-width:190px;text-align:center;padding:9px 4px 10px;font-size:12px;color:var(--mut);text-decoration:none;font-weight:600}
+nav.bot a .i{display:block;font-size:20px;line-height:1.2}
+nav.bot a.at{color:var(--ac)}
+.badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--es);color:#fff;font-size:11px;margin-left:3px}
+.vazio{text-align:center;padding:24px 8px;color:var(--mut)}
+details summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="top"><span class="marca">Meu Estudo · Gestão Moderna</span><button class="sync" id="sync" onclick="location.hash='#/ajustes'">Só neste aparelho</button></div></header>
+<main id="app"></main>
+<nav class="bot">
+<a href="#/" data-r="inicio"><span class="i">⌂</span>Início</a>
+<a href="#/revisao" data-r="revisao"><span class="i">↻</span>Revisão<span id="nrev"></span></a>
+<a href="#/notas" data-r="notas"><span class="i">✎</span>Anotações</a>
+<a href="#/ajustes" data-r="ajustes"><span class="i">⚙</span>Ajustes</a>
+</nav>
+<script>
+// ===== CONTEÚDO DO CURSO =====
+// Mês 1: Enxergar, entender e melhorar um processo com IA
+
+const SVG_PROX = `<svg viewBox="0 0 360 210" role="img" aria-label="A IA escolhe a próxima palavra pela probabilidade">
+<rect x="0" y="0" width="360" height="210" rx="12" fill="#f3f7f6"/>
+<text x="16" y="28" font-size="13" fill="#1f2328">"Para reduzir erros na separação,</text>
+<text x="16" y="46" font-size="13" fill="#1f2328">o primeiro passo é ______"</text>
+<text x="16" y="74" font-size="11" fill="#5f6368">Palavras que a IA considera (chance aproximada):</text>
+<text x="16" y="100" font-size="13" fill="#1f2328">conferir</text><rect x="100" y="89" width="185" height="14" rx="3" fill="#0f766e"/><text x="292" y="100" font-size="12" fill="#0f766e">41%</text>
+<text x="16" y="126" font-size="13" fill="#1f2328">treinar</text><rect x="100" y="115" width="122" height="14" rx="3" fill="#5fb3a6"/><text x="229" y="126" font-size="12" fill="#5f6368">27%</text>
+<text x="16" y="152" font-size="13" fill="#1f2328">etiquetar</text><rect x="100" y="141" width="81" height="14" rx="3" fill="#9fd3ca"/><text x="188" y="152" font-size="12" fill="#5f6368">18%</text>
+<text x="16" y="178" font-size="13" fill="#1f2328">dançar</text><rect x="100" y="167" width="3" height="14" rx="1" fill="#c9c9c9"/><text x="110" y="178" font-size="12" fill="#5f6368">0,01%</text>
+<text x="16" y="200" font-size="11" fill="#5f6368">Ela escolhe uma das mais prováveis e repete, palavra por palavra.</text>
+</svg>`;
+
+const SVG_4D = `<svg viewBox="0 0 360 230" role="img" aria-label="Os 4D: Delegar, Descrever, Discernir, Diligência">
+<rect x="4" y="4" width="172" height="104" rx="12" fill="#e6f4f1" stroke="#0f766e"/>
+<text x="90" y="34" text-anchor="middle" font-size="15" font-weight="700" fill="#0f766e">1. Delegar</text>
+<text x="90" y="58" text-anchor="middle" font-size="12" fill="#1f2328">O que passo pra IA</text>
+<text x="90" y="76" text-anchor="middle" font-size="12" fill="#1f2328">e o que fica comigo?</text>
+<rect x="184" y="4" width="172" height="104" rx="12" fill="#e6f4f1" stroke="#0f766e"/>
+<text x="270" y="34" text-anchor="middle" font-size="15" font-weight="700" fill="#0f766e">2. Descrever</text>
+<text x="270" y="58" text-anchor="middle" font-size="12" fill="#1f2328">Pedir com clareza:</text>
+<text x="270" y="76" text-anchor="middle" font-size="12" fill="#1f2328">contexto, tarefa, formato</text>
+<rect x="4" y="118" width="172" height="104" rx="12" fill="#fdf3e2" stroke="#b45309"/>
+<text x="90" y="148" text-anchor="middle" font-size="15" font-weight="700" fill="#b45309">3. Discernir</text>
+<text x="90" y="172" text-anchor="middle" font-size="12" fill="#1f2328">Avaliar a resposta:</text>
+<text x="90" y="190" text-anchor="middle" font-size="12" fill="#1f2328">está certo? serve?</text>
+<rect x="184" y="118" width="172" height="104" rx="12" fill="#fdf3e2" stroke="#b45309"/>
+<text x="270" y="148" text-anchor="middle" font-size="15" font-weight="700" fill="#b45309">4. Diligência</text>
+<text x="270" y="172" text-anchor="middle" font-size="12" fill="#1f2328">Assumir a responsa-</text>
+<text x="270" y="190" text-anchor="middle" font-size="12" fill="#1f2328">bilidade pelo que uso</text>
+</svg>`;
+
+const SVG_PCTFE = `<svg viewBox="0 0 360 286" role="img" aria-label="As 5 partes de um bom pedido: Papel, Contexto, Tarefa, Formato, Exemplo">
+<g font-size="13">
+<rect x="4" y="4" width="352" height="50" rx="10" fill="#0f766e"/><text x="18" y="25" font-weight="700" fill="#fff">P · Papel</text><text x="18" y="44" font-size="12" fill="#d7f0eb">Quem a IA deve ser nesta tarefa</text>
+<rect x="4" y="60" width="352" height="50" rx="10" fill="#2a8a80"/><text x="18" y="81" font-weight="700" fill="#fff">C · Contexto</text><text x="18" y="100" font-size="12" fill="#e6f4f1">Empresa, situação, problema, público</text>
+<rect x="4" y="116" width="352" height="50" rx="10" fill="#4aa095"/><text x="18" y="137" font-weight="700" fill="#fff">T · Tarefa</text><text x="18" y="156" font-size="12" fill="#f0faf8">O que exatamente, com começo e fim</text>
+<rect x="4" y="172" width="352" height="50" rx="10" fill="#7cbfb5"/><text x="18" y="193" font-weight="700" fill="#10302c">F · Formato</text><text x="18" y="212" font-size="12" fill="#10302c">Como quero receber: lista, tabela, tamanho</text>
+<rect x="4" y="228" width="352" height="50" rx="10" fill="#b5ddd6"/><text x="18" y="249" font-weight="700" fill="#10302c">E · Exemplo e regras</text><text x="18" y="268" font-size="12" fill="#10302c">Um modelo do que quero + o que evitar</text>
+</g></svg>`;
+
+const LINKS_U1 = [
+  {t:'Como uma IA funciona? (vídeo, ~32 min)', f:'Hashtag Treinamentos · português', u:'https://www.hashtagtreinamentos.com/como-uma-ia-funciona-ia', n:'Explica sem jargão por que a IA prevê a próxima palavra, por que inventa e por que tende a concordar com você. Ótimo complemento da etapa 2.'},
+  {t:'O ChatGPT erra! Como identificar e corrigir alucinações (vídeo, ~10 min)', f:'Hashtag Treinamentos · português', u:'https://www.hashtagtreinamentos.com/o-chatgpt-erra-ia', n:'Exemplo real de erro e como pedir fontes e contexto para corrigir.'},
+  {t:'O que é alucinação de IA', f:'Canaltech · artigo em português', u:'https://canaltech.com.br/inteligencia-artificial/o-que-e-alucinacao-de-ia/', n:'Leitura curta para fixar o conceito.'},
+  {t:'Advogado que usou ChatGPT no tribunal foi punido', f:'Olhar Digital · reportagem (2023)', u:'https://olhardigital.com.br/2023/07/14/pro/lembra-do-advogado-que-usou-chatgpt-no-tribunal-ele-foi-punido-por-isso/', n:'O caso real da etapa 1.'},
+  {t:'Advogado pede desculpas após ChatGPT criar casos falsos', f:'Correio Braziliense · reportagem (2023)', u:'https://www.correiobraziliense.com.br/mundo/2023/06/5100516-advogado-pede-desculpas-apos-chatgpt-criar-casos-falsos.html', n:'Mais detalhes do mesmo caso.'},
+  {t:'Guia de prompts para iniciantes', f:'Learn Prompting · português', u:'https://learnprompting.org/pt/docs/basics/introduction', n:'Capítulos curtos e fáceis: instruções, exemplos, papéis, armadilhas.'},
+  {t:'Melhores práticas para pedir ao Claude', f:'Anthropic (oficial) · português · mais técnico', u:'https://platform.claude.com/docs/pt-BR/build-with-claude/prompt-engineering/claude-prompting-best-practices', n:'Guia oficial de quem faz o Claude. Leia só a parte "seja claro e direto" por enquanto.'},
+  {t:'AI Fluency: Framework & Foundations (curso gratuito)', f:'Anthropic Academy · em inglês · opcional', u:'https://anthropic.skilljar.com/ai-fluency-framework-foundations', n:'De onde vêm os 4D desta unidade. Opcional, porque é em inglês.'},
+  {t:'Large Language Models explained briefly (vídeo, ~8 min)', f:'3Blue1Brown · em inglês · opcional', u:'https://www.3blue1brown.com/lessons/mini-llm', n:'Animação visual linda de como a IA funciona por dentro. Dá pra assistir só pelas imagens.'}
+];
+
+const UNIDADES = [
+{
+ id:'u1', n:1, titulo:'Trabalhar com IA', sub:'Como a IA "pensa", como pedir bem e como conferir', status:'aberta', essencial:true,
+ lentes:{ia:'Os 4D e o pedido em 5 partes', mc:'Padronizar pedidos = menos retrabalho', gestao:'Delegar a tarefa, nunca a responsabilidade'},
+ links: LINKS_U1,
+ cartoes:[
+  {id:'u1c1', es:true, p:'Quais são as 5 partes de um bom pedido para a IA? (dica: PCTFE)', r:'Papel, Contexto, Tarefa, Formato e Exemplo (com regras do que evitar). Frase para lembrar: "Peça Com Todos os Fatos Essenciais".'},
+  {id:'u1c2', es:true, p:'Por que a IA pode inventar uma informação com toda a confiança?', r:'Porque ela gera o texto mais provável pelo padrão que aprendeu, palavra por palavra. Ela não consulta se é verdade. Sem contexto ou sem saber, ela completa com algo que "parece certo".'},
+  {id:'u1c3', es:false, p:'Quais são os 4D da fluência em IA?', r:'Delegar (o que passar pra IA), Descrever (pedir bem), Discernir (avaliar a resposta) e Diligência (assumir a responsabilidade pelo que usa).'},
+  {id:'u1c4', es:true, p:'Cite 3 formas de conferir uma resposta da IA.', r:'1) Ver se bate com a realidade da operação. 2) Caçar o que costuma ser inventado: nomes, números, fórmulas, normas, citações. 3) Pedir crítica ("aponte 3 pontos fracos" / "o que você não tem certeza?"). 4) Testar pequeno antes de usar em tudo. 5) Fato importante: conferir em fonte oficial.'},
+  {id:'u1c5', es:false, p:'Qual foi o erro de processo do advogado de Nova York (2023)?', r:'Ele usou a própria IA para conferir a IA (perguntou se os casos eram reais). O certo era conferir numa fonte oficial antes de usar.'},
+  {id:'u1c6', es:true, p:'Princípio de gestão: o que você pode delegar e o que não pode?', r:'Pode delegar a tarefa, nunca a responsabilidade. Quem delega continua respondendo pelo resultado, por isso combina a entrega e confere.'},
+  {id:'u1c7', es:false, p:'O que pedir para a IA e delegar para uma pessoa têm em comum?', r:'Os dois precisam de contexto, tarefa clara, formato da entrega e um exemplo, e nos dois você confere o resultado. Com a pessoa, acrescente o porquê da tarefa e espaço para perguntas.'},
+  {id:'u1c8', es:true, p:'Pela regra do curso, o que NUNCA entra num pedido para a IA com dados da empresa?', r:'Custos, preços, nomes de fornecedores e dados pessoais ou sensíveis. Use dados operacionais (quantidades, prazos, passos) ou fictícios.'}
+ ],
+ etapas:[
+ {n:1, titulo:'Caso real', tipo:'Ver acontecendo', essencial:true, blocos:[
+  {t:'html', h:`<p>Antes de qualquer teoria, dois casos. Leia com calma e pense: <b>o que deu errado?</b></p>
+  <div class="card"><span class="tag">Caso real</span><h3>Nova York, 2023: o advogado e os processos que não existiam</h3>
+  <p>Um advogado com cerca de 30 anos de carreira usou o ChatGPT para achar decisões parecidas com o caso de um cliente que processava a companhia aérea Avianca.</p>
+  <p>A IA entregou uma lista de decisões judiciais com nomes, datas e trechos. Pelo menos <b>seis delas nunca existiram</b>. Desconfiado, ele perguntou ao próprio ChatGPT se os casos eram reais, e a IA disse que sim.</p>
+  <p>O juiz descobriu. Os advogados e o escritório foram multados e o caso virou exemplo no mundo inteiro de como <b>não</b> usar IA.</p></div>
+  <div class="card"><span class="tag cin">Caso de armazém</span><h3>O POP bonito que ninguém conseguia seguir</h3>
+  <p>Um estoquista pede para a IA: <i>"faz um POP de recebimento"</i>. Em 10 segundos chega um documento bonito, com 12 passos. Ele imprime e cola no mural.</p>
+  <p>Na semana seguinte, um colega novo tenta seguir e trava:</p>
+  <ul><li>o passo 4 manda "registrar a entrada no WMS", mas a empresa usa só o ERP;</li>
+  <li>o passo 7 manda "conferir a temperatura da carga", o que não se aplica aos produtos dali;</li>
+  <li>não há nada sobre conferir o <b>número de série</b>, que é justamente o que mais dá problema naquele recebimento.</li></ul>
+  <p class="mut">Este caso é fictício, mas acontece muito.</p></div>`},
+  {t:'campo', id:'u1-e1-reflexao', label:'Pense antes de ver a explicação: o que os dois casos têm em comum? A culpa foi da IA ou de como ela foi usada?', ph:'Escreva com suas palavras. Não existe resposta errada aqui: o objetivo é pensar antes.'},
+  {t:'revelar', id:'u1-e1-rev', exige:'u1-e1-reflexao', botao:'Ver o que aconteceu de fato', h:`
+  <div class="box"><p><b>1. Nos dois casos, a IA entregou algo com cara de certo.</b> Texto bem escrito passa confiança, mas a IA não "sabe" se o que escreveu é verdade. Ela monta o texto mais provável, e você vai ver como isso funciona na etapa 2.</p></div>
+  <div class="box"><p><b>2. O advogado errou na conferência.</b> Ele usou a própria IA para conferir a IA. O certo era checar numa fonte oficial (a base de processos do tribunal).</p></div>
+  <div class="box"><p><b>3. O estoquista errou no pedido e na conferência.</b> O pedido não tinha contexto (qual sistema, quais produtos, qual o problema real) e ninguém revisou antes de imprimir.</p></div>
+  <div class="box es"><p><b>4. A lição de gestão:</b> nos dois casos, a responsabilidade continuou sendo da pessoa, e não da IA. Guarde esta frase, porque ela vai voltar muitas vezes no curso: <b>"Você pode delegar a tarefa, nunca a responsabilidade."</b></p></div>
+  <p>Esta unidade ensina a evitar exatamente esses dois erros: <b>pedir mal</b> e <b>não conferir</b>.</p>`}
+ ]},
+ {n:2, titulo:'Exemplo resolvido', tipo:'Eu mostro passo a passo', essencial:true, blocos:[
+  {t:'html', h:`<h2>Parte 1: Como a IA escreve</h2>
+  <p>Sabe o corretor do celular, que sugere a próxima palavra? A IA é isso, mas <b>muito</b> mais treinada: ela leu uma quantidade gigantesca de textos e aprendeu quais palavras costumam vir depois de quais.</p>
+  <p>Quando você pede algo, ela escreve <b>uma palavra de cada vez</b>, sempre escolhendo entre as mais prováveis:</p>
+  <div class="fig">${SVG_PROX}<div class="leg">Números ilustrativos, só para mostrar a ideia.</div></div>
+  <div class="card"><b>Comparação com o armazém:</b> imagine um colega veterano a quem você pergunta "onde fica o item X?". Ele responde de cabeça e quase sempre acerta, porque conhece o padrão do armazém. Mas se o item é novo, ele <b>chuta um endereço com a mesma confiança</b>. Ele não está mentindo: está completando o padrão. A IA faz a mesma coisa.</div>
+  <p><b>Isso tem 3 consequências práticas:</b></p>
+  <ol><li><b>Sem contexto, ela completa com o genérico.</b> Foi por isso que o POP falava em WMS e em temperatura: é o "armazém médio" da internet, e não o seu.</li>
+  <li><b>Ela inventa mais em nomes, números, fórmulas, normas e citações</b>, porque são coisas que "parecem" certas mesmo quando estão erradas.</li>
+  <li><b>Ela tende a concordar com você.</b> Se você pergunta "isso está certo?", a resposta tende a ser sim. Peça crítica de propósito.</li></ol>
+
+  <h2>Parte 2: Os 4D, o mapa do bom uso</h2>
+  <p>A Anthropic, empresa que cria o Claude, ensina a usar IA em 4 movimentos, os <b>4D</b>:</p>
+  <div class="fig">${SVG_4D}</div>
+  <p>Repare: <b>são as mesmas 4 coisas que um bom gestor faz com a equipe.</b> Decide o que delegar, explica bem, avalia a entrega e responde pelo resultado. Aprender IA aqui é treinar liderança ao mesmo tempo.</p>
+
+  <h2>Parte 3: Como pedir bem (o "Descrever")</h2>
+  <p>Um bom pedido tem 5 partes. Para lembrar: <b>PCTFE</b>, "<b>P</b>eça <b>C</b>om <b>T</b>odos os <b>F</b>atos <b>E</b>ssenciais".</p>
+  <div class="fig">${SVG_PCTFE}</div>
+
+  <h2>Parte 4: Exemplo resolvido, passo a passo</h2>
+  <p>Vamos consertar o pedido do caso de armazém, uma parte de cada vez. Veja o que cada parte muda.</p>
+  <div class="pedido">faz um POP de recebimento</div>
+  <div class="passo"><div class="n">P</div><div><b>+ Papel:</b> "Você é um especialista em processos de armazém que escreve procedimentos simples para equipes operacionais."<br><span class="mut">O que muda: o tom e o nível. Sai o texto de consultoria e entra o texto de chão de armazém.</span></div></div>
+  <div class="passo"><div class="n">C</div><div><b>+ Contexto:</b> "Somos uma empresa que fabrica e importa equipamentos médicos veterinários. O recebimento é feito por 2 pessoas. Usamos um ERP e não temos WMS. Os itens importados têm número de série, e o erro mais comum é dar entrada sem conferir o número de série."<br><span class="mut">O que muda: some o genérico (WMS, temperatura) e aparece o problema real.</span></div></div>
+  <div class="passo"><div class="n">T</div><div><b>+ Tarefa:</b> "Escreva um POP de recebimento de mercadorias importadas, do descarregamento até a entrada no ERP."<br><span class="mut">O que muda: a tarefa ganha começo e fim claros.</span></div></div>
+  <div class="passo"><div class="n">F</div><div><b>+ Formato:</b> "No máximo 10 passos numerados, frases curtas, cada passo dizendo quem faz. No fim, um checklist de 5 itens para imprimir."<br><span class="mut">O que muda: chega pronto para usar, sem precisar reformatar.</span></div></div>
+  <div class="passo"><div class="n">E</div><div><b>+ Exemplo e regras:</b> "Exemplo de passo: '3. Conferente: compara o número de série da etiqueta com o da nota. Se divergir, separa na área de pendências.' Se faltar alguma informação, me pergunte antes de escrever. Não invente sistemas nem normas."<br><span class="mut">O que muda: a IA copia o estilo do exemplo, pergunta em vez de chutar e fica proibida de inventar.</span></div></div>
+  <p><b>Pedido final:</b></p>
+  <div class="pedido"><b>Papel:</b> Você é um especialista em processos de armazém que escreve procedimentos simples para equipes operacionais.
+<b>Contexto:</b> Somos uma empresa que fabrica e importa equipamentos médicos veterinários. O recebimento é feito por 2 pessoas. Usamos um ERP e não temos WMS. Os itens importados têm número de série, e o erro mais comum é dar entrada sem conferir o número de série.
+<b>Tarefa:</b> Escreva um POP de recebimento de mercadorias importadas, do descarregamento até a entrada no ERP.
+<b>Formato:</b> No máximo 10 passos numerados, frases curtas, cada passo dizendo quem faz. No fim, um checklist de 5 itens para imprimir.
+<b>Exemplo e regras:</b> Exemplo de passo: "3. Conferente: compara o número de série da etiqueta com o da nota. Se divergir, separa na área de pendências." Se faltar alguma informação, me pergunte antes de escrever. Não invente sistemas nem normas.</div>
+  <div class="box">Não precisa escrever "Papel:", "Contexto:" etc. no pedido de verdade. Os rótulos aqui são só para você enxergar as partes. Com o tempo, isso vira hábito.</div>
+
+  <h2>Parte 5: Como conferir (o "Discernir")</h2>
+  <div class="chk">✅ <span><b>Bate com a realidade?</b> Leia como se fosse o colega novo. Dá para seguir no seu armazém?</span></div>
+  <div class="chk">✅ <span><b>Cace os inventados:</b> nomes, números, fórmulas, normas, sistemas, leis. Cada um desses precisa ser confirmado.</span></div>
+  <div class="chk">✅ <span><b>Peça a crítica:</b> "Aponte 3 pontos fracos desta resposta" ou "O que aqui você não tem certeza?"</span></div>
+  <div class="chk">✅ <span><b>Teste pequeno:</b> use primeiro com um colega ou num recebimento antes de imprimir para todos.</span></div>
+  <div class="chk">✅ <span><b>Fato importante → fonte oficial.</b> Nunca use a própria IA para conferir a IA (lembra do advogado?).</span></div>
+
+  <div class="box es"><b>Regra de ouro dos dados (essencial):</b> nunca coloque custos, preços, nomes de fornecedores ou dados pessoais num pedido. Use dados operacionais (quantidades, prazos, passos) ou invente números parecidos.</div>`},
+  {t:'campo', id:'u1-e2-explique', label:'Para fixar: explique para um colega, com suas palavras, por que a IA às vezes inventa coisas.', ph:'Tente sem olhar o texto acima. Se travar, releia a comparação do colega veterano.'},
+  {t:'links', titulo:'Assista e leia (escolha pelo menos 1 vídeo)', itens:LINKS_U1.slice(0,3)}
+ ]},
+ {n:3, titulo:'Fazer junto', tipo:'Você faz, eu dou dicas', essencial:false, blocos:[
+  {t:'html', h:`<p>Três exercícios, um para cada "D" que mais importa agora. Se travar, abra <b>uma dica por vez</b>. O exemplo de resposta só aparece depois que você escrever a sua.</p>`},
+  {t:'exercicio', id:'u1-ex1', titulo:'Exercício 1 · Descrever', enun:'Reescreva este pedido usando as 5 partes (PCTFE):', pedido:'me ajuda com o inventário',
+   dicas:['Antes de escrever: o que exatamente você quer? Planejar o inventário, organizar a contagem ou analisar as diferenças depois? Escolha <b>uma</b> coisa.',
+   'Passe pelas 5 letras: Papel, Contexto, Tarefa, Formato, Exemplo. Quantas o pedido original tem? (Nenhuma!) Escreva uma linha para cada.',
+   'Comece assim: "Você é um analista de estoque experiente. Contexto: vamos fazer o inventário rotativo dos itens da Curva A..." e continue com a tarefa e o formato.'],
+   exemplo:`Você é um analista de estoque experiente que ajuda equipes pequenas a se organizar.
+Contexto: somos 2 pessoas no estoque de uma empresa de equipamentos médicos veterinários. Queremos começar um inventário rotativo dos 20 itens da Curva A, contando alguns por semana, sem parar a operação. Usamos um ERP.
+Tarefa: monte um plano de contagem para 4 semanas.
+Formato: uma tabela com semana, quais itens contar (use "Item 1, Item 2..."), quem conta e quanto tempo leva. Depois, 3 dicas para reduzir erro na contagem.
+Regras: se faltar informação, pergunte antes. Não invente nomes de produtos.`,
+   checklist:['Tem papel (quem a IA deve ser)?','Tem contexto (empresa, equipe, sistema, objetivo)?','A tarefa é uma só e tem começo e fim?','O formato da resposta está claro?','Tem exemplo ou regra (ex.: "pergunte se faltar informação")?','Está sem custos, preços e fornecedores?']},
+  {t:'exercicio', id:'u1-ex2', titulo:'Exercício 2 · Discernir', enun:'Um colega perguntou à IA "o que é giro de estoque?" e recebeu a resposta abaixo. Encontre pelo menos 3 problemas.',
+   pedido:`Giro de estoque mede quantas vezes o estoque se renova em um período. A fórmula é:
+Giro = Estoque médio ÷ Quantidade que saiu no período.
+Segundo a Resolução nº 47 do Conselho Nacional de Logística, o giro ideal para qualquer empresa é de 12 vezes por ano. Quanto maior o giro, sempre melhor.`,
+   dicas:['Leia frase por frase e pergunte: "isso eu consigo comprovar? Bate com o que eu vejo no meu armazém?"',
+   'Lembre onde a IA mais inventa: números, fórmulas, nomes, normas, citações. Marque cada um desses no texto. Quantos achou?',
+   'Teste a fórmula com números: estoque médio de 50 unidades, saíram 200 no ano. Pela fórmula do texto, o giro dá 0,25. Isso faz sentido? E um item importado, com 90 dias de prazo, deveria ter o mesmo giro que um item comprado no Brasil?'],
+   exemplo:`1. Fórmula invertida. O certo é: Giro = Quantidade que saiu ÷ Estoque médio. (200 ÷ 50 = giro 4.)
+2. Fonte inventada. Não existe "Conselho Nacional de Logística" que defina giro. Citação de norma ou órgão sempre precisa de conferência.
+3. Generalização falsa. Não existe giro ideal para qualquer empresa: depende do produto, do prazo de reposição e da demanda.
+4. "Quanto maior, sempre melhor" também é falso. Giro alto demais pode significar estoque curto demais e risco de faltar produto.`,
+   checklist:['Achei o erro na fórmula','Desconfiei da fonte citada','Percebi a generalização ("qualquer empresa")','Percebi o "sempre melhor"']},
+  {t:'classificar', id:'u1-ex3', titulo:'Exercício 3 · Delegar', enun:'Para cada tarefa, decida: quem faz?',
+   ops:['IA faz sozinha','IA ajuda, eu confiro','Só eu'],
+   itens:[
+    {x:'Sugerir nomes para organizar as pastas de arquivos do setor', c:0, pq:'Baixo risco e fácil de ver se ficou bom. Pode deixar com a IA.'},
+    {x:'Rascunho de e-mail para a transportadora sobre um atraso', c:1, pq:'Vai em seu nome. O tom e os fatos (datas, notas) precisam ser conferidos por você.'},
+    {x:'Decidir se um equipamento com a embalagem avariada pode ser expedido', c:2, pq:'É decisão de qualidade e segurança. A IA não vê o produto e não responde por ele.'},
+    {x:'Montar uma fórmula de planilha para calcular o giro', c:1, pq:'A IA é ótima nisso, mas você testa com números que já sabe o resultado antes de confiar.'},
+    {x:'Traduzir um trecho de manual técnico do inglês', c:1, pq:'Tradução boa, mas termos técnicos e números precisam de conferência.'},
+    {x:'Fazer a contagem física do inventário', c:2, pq:'Trabalho físico. A IA pode ajudar a planejar, mas não a contar.'},
+    {x:'Resumir em 5 pontos as minhas próprias anotações da semana', c:0, pq:'Material seu, uso só seu, baixo risco. Mesmo assim, você vai ler, então dá pra ver na hora se ficou bom.'}
+   ],
+   fim:'Repare: quase tudo que <b>importa</b> cai em "IA ajuda, eu confiro". É exatamente como delegar para um colega novo: você passa a tarefa, mas confere a entrega.'}
+ ]},
+ {n:4, titulo:'Fazer sozinho', tipo:'Aplicar no seu trabalho', essencial:false, blocos:[
+  {t:'html', h:`<div class="card es"><span class="tag es">Missão da semana</span><h3>Use IA numa tarefa real sua</h3>
+  <p>Escolha <b>1 tarefa</b> que você faz na mão e que envolve texto, organização ou planilha. Algumas ideias:</p>
+  <ul><li>escrever ou atualizar um procedimento (POP);</li><li>montar uma fórmula de planilha;</li><li>organizar uma lista ou um checklist;</li><li>preparar uma mensagem para outro setor;</li><li>resumir anotações de uma reunião.</li></ul>
+  <p><b>Regra:</b> sem custos, preços, fornecedores ou dados pessoais. Se precisar, troque por dados fictícios.</p></div>
+  <p>Registre abaixo. O registro é o que vira aprendizado, e mais tarde vira portfólio.</p>`},
+  {t:'campo', id:'u1-e4-tarefa', label:'1. Qual tarefa você escolheu e por quê?', ph:'Ex.: atualizar o checklist de expedição, porque hoje cada um faz de um jeito.', l:3},
+  {t:'campo', id:'u1-e4-pedido1', label:'2. Seu pedido (versão 1), com as 5 partes', ph:'Papel... Contexto... Tarefa... Formato... Exemplo e regras...'},
+  {t:'campo', id:'u1-e4-entrega', label:'3. O que a IA entregou (resumo)', ph:'Em 2 ou 3 linhas.', l:3},
+  {t:'campo', id:'u1-e4-confere', label:'4. Como você conferiu? O que estava errado, genérico ou inventado?', ph:'Use o checklist do Discernir da etapa 2.'},
+  {t:'campo', id:'u1-e4-pedido2', label:'5. O que você mudou no pedido (versão 2) e o que melhorou?', ph:'Ex.: acrescentei o contexto do ERP e ela parou de falar de WMS.'},
+  {t:'campo', id:'u1-e4-result', label:'6. Resultado: quanto tempo levava antes e quanto levou agora? Vai usar de novo?', ph:'Estimativa já serve.', l:3},
+  {t:'html', h:`<h2>Lente de gestão: delegar para uma pessoa</h2>
+  <p><b>"Você pode delegar a tarefa, nunca a responsabilidade."</b> Agora use o mesmo PCTFE para passar uma tarefa a um <b>colega novo</b>, por exemplo a conferência de um recebimento.</p>
+  <div class="box">Com pessoas, acrescente 3 coisas que a IA não precisa: <b>o porquê</b> da tarefa (motiva e ajuda a decidir sozinho), <b>quando</b> você vai conferir, e <b>espaço para perguntas</b>.</div>`},
+  {t:'campo', id:'u1-e4-delega', label:'7. Escreva como você delegaria essa tarefa para o colega novo', ph:'Como se fosse uma mensagem ou uma conversa de 2 minutos.'},
+  {t:'campo', id:'u1-e4-compara', label:'8. O que foi diferente entre pedir para a IA e pedir para a pessoa?', ph:'', l:3}
+ ]},
+ {n:5, titulo:'Dominei?', tipo:'Checagem sem consultar', essencial:true, blocos:[
+  {t:'html', h:`<p>Responda <b>sem consultar</b>. Para dominar a unidade: <b>pelo menos 5 de 6</b>. Se não passar, tudo bem: releia as explicações das que errou e tente de novo outro dia.</p>
+  <p class="mut">Depois disso, as perguntas da unidade continuam voltando na aba Revisão (em 1, 3, 7 e 21 dias). É isso que faz o conteúdo ficar.</p>`},
+  {t:'quiz', id:'u1-quiz', min:5, qs:[
+   {p:'Por que a IA pode inventar uma informação com total confiança?', o:['Porque foi programada para enganar','Porque gera o texto mais provável pelo padrão, sem checar se é verdade','Porque estava sem internet','Isso só acontece com IAs gratuitas'], c:1, pq:'Ela completa o padrão palavra por palavra. "Parecer certo" e "ser certo" são coisas diferentes para ela.'},
+   {p:'Qual destes pedidos segue melhor o PCTFE?', o:['"Faz um checklist de expedição."','"Faz um checklist de expedição bem completo e profissional."','"Você é especialista em expedição. Despachamos equipamentos médicos veterinários por transportadora, e o erro mais comum é a caixa sair sem manual. Crie um checklist de expedição com até 8 itens, em lista para imprimir. Exemplo de item: \'☐ Manual dentro da caixa\'. Se faltar informação, pergunte."','"Me dá um checklist igual ao das grandes empresas."'], c:2, pq:'É o único com papel, contexto, tarefa, formato e exemplo. "Completo e profissional" não é contexto, é só adjetivo.'},
+   {p:'O advogado de Nova York perguntou ao ChatGPT se os casos eram reais. Qual foi o problema dessa conferência?', o:['Ele deveria ter perguntado duas vezes','Usou a própria IA para conferir a IA, em vez de uma fonte oficial','Ele deveria ter usado outra IA','Não houve problema: a IA errou sozinha'], c:1, pq:'A IA tende a confirmar o que já disse. Fato importante se confere em fonte oficial.'},
+   {p:'A IA te deu uma fórmula para calcular o estoque mínimo. Qual o melhor próximo passo?', o:['Usar direto, porque IA não erra conta','Testar a fórmula com números cujo resultado você já sabe','Pedir para a IA confirmar se está certa','Descartar, porque IA não serve para fórmula'], c:1, pq:'Teste pequeno com resultado conhecido é a forma mais rápida e segura de conferir.'},
+   {p:'Pela regra do curso, qual destes NÃO deve entrar num pedido para a IA?', o:['A quantidade em estoque de um item genérico','O prazo médio de importação','O preço de compra e o nome do fornecedor','O número de passos de um processo'], c:2, pq:'Custos, preços e fornecedores ficam fora. Os dados operacionais podem entrar.'},
+   {p:'"Você pode delegar a tarefa, nunca a responsabilidade." Na prática, isso significa que:', o:['É melhor não delegar nada','Quem delega continua respondendo pelo resultado, por isso combina a entrega e confere','A responsabilidade passa para quem recebeu a tarefa','Só vale para pessoas, não para a IA'], c:1, pq:'Vale para pessoas e para a IA: você passa o trabalho, mas o resultado continua sendo seu.'}
+  ]}
+ ]}
+ ]
+},
+{id:'u2', n:2, titulo:'Enxergar o processo', sub:'Mapear um processo e caçar os 8 desperdícios do Lean', status:'breve', essencial:true,
+ lentes:{ia:'Transformar sua descrição em fluxograma', mc:'Mapeamento e os 8 desperdícios', gestao:'Ir onde o trabalho acontece (gemba)'}},
+{id:'u3', n:3, titulo:'Achar a causa raiz', sub:'5 porquês e diagrama de Ishikawa', status:'breve', essencial:true,
+ lentes:{ia:'O Claude questionando os seus porquês', mc:'5 porquês + Ishikawa', gestao:'Culpar o processo, não a pessoa'}},
+{id:'u4', n:4, titulo:'PDCA na prática', sub:'Testar uma melhoria pequena e medir antes e depois', status:'breve', essencial:true,
+ lentes:{ia:'Montar a proposta em 1 página (A3)', mc:'PDCA e medição antes/depois', gestao:'Apresentar uma ideia para a chefia'}}
+];
+
+// ===== APP =====
+const K_DADOS='ge_dados', K_CFG='ge_cfg', ARQ='dados.json';
+const INTERVALOS=[1,3,7,21,60]; // dias até a próxima revisão, por caixa
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const hoje=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const somaDias=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const dataBR=s=>{if(!s)return'';const [a,m,d]=s.slice(0,10).split('-');return d+'/'+m+'/'+a};
+
+function novo(){return{versao:1,atualizadoEm:0,etapas:{},resp:{},checks:{},dicas:{},revel:{},classif:{},quiz:{},dominio:{},cartoes:{},notas:[]}}
+function lerLocal(){try{const d=JSON.parse(localStorage.getItem(K_DADOS));return Object.assign(novo(),d||{})}catch(e){return novo()}}
+function lerCfg(){try{return JSON.parse(localStorage.getItem(K_CFG))||null}catch(e){return null}}
+let D=lerLocal(), CFG=lerCfg();
+
+// ---------- salvar + sincronizar com o cofre (repositório privado) ----------
+let tSync=null, sha=null, enviando=false, pendente=false;
+function salvar(){D.atualizadoEm=Date.now();try{localStorage.setItem(K_DADOS,JSON.stringify(D))}catch(e){}
+ atualizaBadge(); if(CFG){status('sv','Salvando…');clearTimeout(tSync);tSync=setTimeout(enviar,1500)}}
+function status(cl,tx){const b=$('#sync');b.className='sync '+cl;b.textContent=tx}
+function b64enc(str){const by=new TextEncoder().encode(str);let s='';for(let i=0;i<by.length;i+=8192)s+=String.fromCharCode.apply(null,by.subarray(i,i+8192));return btoa(s)}
+function b64dec(b){const bin=atob(b.replace(/\s/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)}
+function api(path,opt={}){return fetch('https://api.github.com/repos/'+encodeURIComponent(CFG.dono)+'/'+encodeURIComponent(CFG.repo)+'/contents/'+path,
+ Object.assign({cache:'no-store'},opt,{headers:Object.assign({'Authorization':'Bearer '+CFG.chave,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},opt.headers||{})}))}
+async function baixar(){ // retorna {dados, sha} ou null se ainda não existe
+ const r=await api(ARQ);
+ if(r.status===404)return null;
+ if(!r.ok)throw new Error(r.status);
+ const j=await r.json();return{dados:JSON.parse(b64dec(j.content)),sha:j.sha}}
+async function enviar(){
+ if(!CFG)return; if(enviando){pendente=true;return}
+ enviando=true;
+ try{
+  for(let tent=0;tent<2;tent++){
+   const corpo={message:'estudo '+new Date().toLocaleString('pt-BR'),content:b64enc(JSON.stringify(D,null,1))};
+   if(sha)corpo.sha=sha;
+   const r=await api(ARQ,{method:'PUT',body:JSON.stringify(corpo),headers:{'Content-Type':'application/json'}});
+   if(r.ok){sha=(await r.json()).content.sha;status('ok','Salvo no cofre ✓');break}
+   if((r.status===409||r.status===422)&&tent===0){const rem=await baixar();sha=rem?rem.sha:null;continue}
+   throw new Error(r.status)}
+ }catch(e){status('er',erroTxt(e))}
+ enviando=false; if(pendente){pendente=false;enviar()}}
+function erroTxt(e){const m=String(e.message||e);if(m==='401')return'Chave inválida';if(m==='404')return'Cofre não encontrado';if(m==='403')return'Chave sem permissão';return'Sem conexão (salvo aqui)'}
+async function puxar(){
+ if(!CFG)return;
+ status('sv','Conferindo…');
+ try{
+  const rem=await baixar();
+  if(!rem){sha=null;await enviar();return}
+  sha=rem.sha;
+  if((rem.dados.atualizadoEm||0)>(D.atualizadoEm||0)){D=Object.assign(novo(),rem.dados);localStorage.setItem(K_DADOS,JSON.stringify(D));render()}
+  else if((rem.dados.atualizadoEm||0)<(D.atualizadoEm||0)){await enviar();return}
+  status('ok','Salvo no cofre ✓')
+ }catch(e){status('er',erroTxt(e))}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')puxar()});
+
+// ---------- regras do curso ----------
+const unid=id=>UNIDADES.find(u=>u.id===id);
+const etKey=(u,n)=>u.id+'-e'+n;
+const feita=(u,n)=>!!D.etapas[etKey(u,n)];
+function progresso(u){if(!u.etapas)return 0;return Math.round(u.etapas.filter(e=>feita(u,e.n)).length/u.etapas.length*100)}
+function cartoesAtivos(){const l=[];UNIDADES.forEach(u=>{if(u.cartoes&&u.etapas&&feita(u,2))u.cartoes.forEach(c=>l.push(Object.assign({u:u.id},c)))});return l}
+function devidos(){const h=hoje();return cartoesAtivos().filter(c=>{const s=D.cartoes[c.id];return!s||s.proxima<=h})}
+function essenciaisPendentes(){const l=[];UNIDADES.filter(u=>u.status==='aberta').forEach(u=>u.etapas.forEach(e=>{if(e.essencial&&!feita(u,e.n))l.push({u,e})}));return l}
+function proximaEtapa(){for(const u of UNIDADES.filter(u=>u.status==='aberta'))for(const e of u.etapas)if(!feita(u,e.n))return{u,e};return null}
+function atualizaBadge(){const n=devidos().length;$('#nrev').innerHTML=n?'<span class="badge">'+n+'</span>':''}
+
+// ---------- telas ----------
+function telaInicio(){
+ const dv=devidos().length, pe=proximaEtapa(), es=essenciaisPendentes();
+ let h=`<h1>Olá, William</h1><p class="mut">Mês 1 · Enxergar, entender e melhorar um processo com IA</p>`;
+ if(dv)h+=`<a class="card link es" href="#/revisao"><b>↻ ${dv} pergunta${dv>1?'s':''} para revisar hoje</b><br><span class="mut">10 minutos, sem olhar a resposta. É o que faz o conteúdo ficar.</span></a>`;
+ if(pe)h+=`<a class="card link" href="#/u/${pe.u.id}/${pe.e.n}"><span class="tag">Continuar</span><b>Unidade ${pe.u.n} · ${esc(pe.e.titulo)}</b><br><span class="mut">${esc(pe.u.titulo)} · ${esc(pe.e.tipo)}</span></a>`;
+ if(es.length)h+=`<div class="card es"><span class="tag es">Essencial</span><b>Conteúdo que não pode ficar para trás</b><ul style="margin:6px 0 0;padding-left:20px">${es.map(x=>`<li><a href="#/u/${x.u.id}/${x.e.n}">Unidade ${x.u.n} · ${esc(x.e.titulo)}</a></li>`).join('')}</ul><p class="mut" style="margin-bottom:0">Regra do curso: o que é essencial não sai da grade, mesmo quando for chato. Se travar, a gente muda o jeito de ensinar.</p></div>`;
+ h+=`<h2>Unidades do mês</h2>`;
+ UNIDADES.forEach(u=>{
+  const ab=u.status==='aberta', p=progresso(u), dom=D.dominio[u.id];
+  const inner=`<span class="tag ${dom?'ok':ab?'':'cin'}">${dom?'Dominada ✓':ab?'Unidade '+u.n:'Em breve'}</span>${u.essencial?'<span class="tag es">Essencial</span>':''}
+   <h3 style="margin:8px 0 2px">${u.n}. ${esc(u.titulo)}</h3><div class="mut">${esc(u.sub)}</div>
+   <div class="mut" style="margin-top:6px">IA: ${esc(u.lentes.ia)} · Melhoria: ${esc(u.lentes.mc)} · Gestão: ${esc(u.lentes.gestao)}</div>
+   ${ab?`<div class="barra"><i style="width:${p}%"></i></div>`:''}`;
+  h+=ab?`<a class="card link" href="#/u/${u.id}">${inner}</a>`:`<div class="card" style="opacity:.6">${inner}</div>`});
+ h+=`<div class="box"><b>Como cada unidade funciona:</b> 1. caso real → 2. exemplo resolvido → 3. fazer junto → 4. fazer sozinho, no trabalho → 5. dominei? Depois, a revisão traz as perguntas de volta em 1, 3, 7 e 21 dias.</div>`;
+ return h}
+
+function telaUnidade(u){
+ if(!u||u.status!=='aberta')return`<p>Esta unidade ainda está em construção.</p><a class="btn sec" href="#/">Voltar</a>`;
+ let h=`<a href="#/" class="mut">← Início</a><h1>Unidade ${u.n} · ${esc(u.titulo)}</h1><p class="mut">${esc(u.sub)}</p>`;
+ if(D.dominio[u.id])h+=`<div class="box ok">Unidade dominada em ${dataBR(new Date(D.dominio[u.id]).toISOString())}. As perguntas continuam na Revisão.</div>`;
+ h+=`<div class="barra"><i style="width:${progresso(u)}%"></i></div><div class="etapas">`;
+ u.etapas.forEach(e=>{h+=`<div class="card ${feita(u,e.n)?'feito':''}"><a href="#/u/${u.id}/${e.n}"><span class="ic">${feita(u,e.n)?'✓':e.n}</span><span><b>${esc(e.titulo)}</b> ${e.essencial?'<span class="tag es">Essencial</span>':''}<br><span class="mut">${esc(e.tipo)}</span></span></a></div>`});
+ h+=`</div><h2>Material de apoio</h2>`+linksHTML(u.links);
+ return h}
+
+function linksHTML(l){return(l||[]).map(k=>`<a class="lk" href="${k.u}" target="_blank" rel="noopener"><b>${esc(k.t)} ↗</b><span>${esc(k.f)}</span><span>${esc(k.n)}</span></a>`).join('')}
+
+function telaEtapa(u,n){
+ const e=u&&u.etapas&&u.etapas.find(x=>x.n===n); if(!e)return telaUnidade(u);
+ let h=`<a href="#/u/${u.id}" class="mut">← Unidade ${u.n} · ${esc(u.titulo)}</a><h1>${e.n}. ${esc(e.titulo)}</h1><p class="mut">${esc(e.tipo)} ${e.essencial?'<span class="tag es">Essencial</span>':''}</p>`;
+ e.blocos.forEach(b=>h+=bloco(b));
+ const ok=feita(u,n), ehQuiz=e.blocos.some(b=>b.t==='quiz');
+ h+=`<div class="card">${ok?'<span class="tag ok">Etapa concluída ✓</span>':''}
+  ${ehQuiz?'<p class="mut">Esta etapa é concluída quando você atinge o mínimo no teste.</p>':`<button class="btn" onclick="concluir('${u.id}',${n})" ${ok?'disabled':''}>${ok?'Concluída':'Concluí esta etapa'}</button>`}
+  ${ok&&!ehQuiz?`<button class="btn sec peq" onclick="desfazer('${u.id}',${n})">Desmarcar</button>`:''}</div>`;
+ h+=`<div class="nav-et">${n>1?`<a class="btn sec" href="#/u/${u.id}/${n-1}">← Anterior</a>`:'<span></span>'}${n<u.etapas.length?`<a class="btn sec" href="#/u/${u.id}/${n+1}">Próxima →</a>`:''}</div>`;
+ return h}
+
+function bloco(b){
+ if(b.t==='html')return b.h;
+ if(b.t==='campo')return`<label class="cmp" for="${b.id}">${b.label}</label><textarea id="${b.id}" data-resp="${b.id}" rows="${b.l||5}" placeholder="${esc(b.ph)}">${esc(D.resp[b.id])}</textarea>`;
+ if(b.t==='revelar'){const ab=D.revel[b.id];return`<div id="rv-${b.id}">${ab?b.h:`<button class="btn sec" onclick="revelar('${b.id}','${b.exige}')">${esc(b.botao)}</button><div class="erro" id="er-${b.id}"></div>`}</div>`}
+ if(b.t==='links')return`<h2>${esc(b.titulo)}</h2>`+linksHTML(b.itens);
+ if(b.t==='exercicio'){
+  const n=D.dicas[b.id]||0, ck=D.checks[b.id]||{};
+  let h=`<div class="card"><span class="tag">${esc(b.titulo)}</span><p><b>${esc(b.enun)}</b></p><div class="pedido">${esc(b.pedido)}</div>
+   <label class="cmp" for="${b.id}">Sua resposta</label><textarea id="${b.id}" data-resp="${b.id}" rows="6">${esc(D.resp[b.id])}</textarea>`;
+  for(let i=0;i<n&&i<b.dicas.length;i++)h+=`<div class="dica"><b>Dica ${i+1}:</b> ${b.dicas[i]}</div>`;
+  if(n<b.dicas.length)h+=`<button class="btn sec peq" onclick="dica('${b.id}')">Abrir dica ${n+1} de ${b.dicas.length}</button>`;
+  h+=`<h3>Confira você mesmo</h3>`+b.checklist.map((c,i)=>`<label class="chk"><input type="checkbox" data-chk="${b.id}" data-i="${i}" ${ck[i]?'checked':''}><span>${esc(c)}</span></label>`).join('');
+  h+=D.revel[b.id]?`<div class="box ok"><b>Um exemplo de resposta</b> (o seu não precisa ser igual):<div class="pedido" style="margin-top:8px">${esc(b.exemplo)}</div></div>`
+   :`<button class="btn sec peq" onclick="revelar('${b.id}','${b.id}')">Me mostra um exemplo de resposta</button><div class="erro" id="er-${b.id}"></div>`;
+  return h+`</div>`}
+ if(b.t==='classificar'){
+  const r=D.classif[b.id]||{}, conf=r._conf;
+  let h=`<div class="card"><span class="tag">${esc(b.titulo)}</span><p><b>${esc(b.enun)}</b></p>`;
+  b.itens.forEach((it,i)=>{const v=r[i];const cl=conf?(Number(v)===it.c?'box ok':'box er'):'';
+   h+=`<div style="margin:12px 0"><div style="font-weight:600;font-size:15px">${esc(it.x)}</div>
+    <select data-cls="${b.id}" data-i="${i}"><option value="">Escolha…</option>${b.ops.map((o,j)=>`<option value="${j}" ${String(v)===String(j)?'selected':''}>${esc(o)}</option>`).join('')}</select>
+    ${conf?`<div class="${cl}" style="margin-top:6px;font-size:14px">${Number(v)===it.c?'✓ ':'✗ Melhor: <b>'+esc(b.ops[it.c])+'</b>. '}${esc(it.pq)}</div>`:''}</div>`});
+  h+=`<button class="btn" onclick="conferirCls('${b.id}',${b.itens.length})">Conferir</button><div class="erro" id="er-${b.id}"></div>`;
+  if(conf)h+=`<div class="box" style="margin-top:12px">${b.fim}</div>`;
+  return h+`</div>`}
+ if(b.t==='quiz'){
+  const q=D.quiz[b.id];
+  let h=`<div id="qz-${b.id}">`;
+  b.qs.forEach((x,i)=>{const resp=q&&q.r?q.r[i]:undefined;
+   h+=`<div class="card"><b>${i+1}. ${esc(x.p)}</b>`+x.o.map((o,j)=>{let cl='';if(q&&q.r){if(j===x.c)cl='certa';else if(Number(resp)===j)cl='errada'}
+    return`<label class="op ${cl}"><input type="radio" name="${b.id}-${i}" value="${j}" ${Number(resp)===j?'checked':''} ${q&&q.r?'disabled':''}>${esc(o)}</label>`}).join('');
+   if(q&&q.r)h+=`<div class="${Number(resp)===x.c?'box ok':'box er'}" style="font-size:14px">${Number(resp)===x.c?'✓ Certo. ':'✗ '}${esc(x.pq)}</div>`;
+   h+=`</div>`});
+  if(q&&q.r){const ok=q.a>=b.min;
+   h+=`<div class="box ${ok?'ok':'es'}"><b>${q.a} de ${b.qs.length}.</b> ${ok?'Unidade dominada! As perguntas continuam voltando na Revisão.':'Quase. Releia as explicações das que errou, volte à etapa 2 se precisar e tente de novo outro dia.'}</div>
+    <button class="btn sec" onclick="refazerQuiz('${b.id}')">Fazer de novo</button>`}
+  else h+=`<button class="btn" onclick="corrigirQuiz('${b.id}')">Corrigir</button><div class="erro" id="er-${b.id}"></div>`;
+  return h+`</div>`}
+ return''}
+
+// ---------- ações ----------
+function acharBloco(id){for(const u of UNIDADES)for(const e of(u.etapas||[]))for(const b of e.blocos)if(b.id===id)return{u,e,b};return null}
+function concluir(uid,n){D.etapas[uid+'-e'+n]=Date.now();salvar();render()}
+function desfazer(uid,n){delete D.etapas[uid+'-e'+n];salvar();render()}
+function dica(id){D.dicas[id]=(D.dicas[id]||0)+1;salvar();render(true)}
+function revelar(id,exige){if(!(D.resp[exige]||'').trim()){$('#er-'+id).textContent='Escreva a sua resposta primeiro. Pensar antes de ver é o que faz aprender.';return}D.revel[id]=1;salvar();render(true)}
+function conferirCls(id,n){const r=D.classif[id]||{};for(let i=0;i<n;i++)if(r[i]===undefined||r[i]===''){$('#er-'+id).textContent='Escolha uma opção para todas as tarefas antes de conferir.';return}r._conf=1;D.classif[id]=r;salvar();render(true)}
+function corrigirQuiz(id){const {u,b}=acharBloco(id);const r=[];
+ for(let i=0;i<b.qs.length;i++){const m=document.querySelector(`input[name="${id}-${i}"]:checked`);if(!m){$('#er-'+id).textContent='Responda todas as perguntas antes de corrigir.';return}r.push(Number(m.value))}
+ const a=r.filter((v,i)=>v===b.qs[i].c).length;D.quiz[id]={r,a,em:Date.now()};
+ if(a>=b.min){D.dominio[u.id]=D.dominio[u.id]||Date.now();const e=u.etapas.find(e=>e.blocos.includes(b));D.etapas[u.id+'-e'+e.n]=D.etapas[u.id+'-e'+e.n]||Date.now()}
+ salvar();render(true)}
+function refazerQuiz(id){delete D.quiz[id];salvar();render(true)}
+
+document.addEventListener('input',ev=>{const t=ev.target;
+ if(t.dataset.resp){D.resp[t.dataset.resp]=t.value;const er=t.parentElement.querySelector('.erro');if(er)er.textContent='';salvarLento()}});
+document.addEventListener('change',ev=>{const t=ev.target;
+ if(t.dataset.chk){const c=D.checks[t.dataset.chk]||{};c[t.dataset.i]=t.checked;D.checks[t.dataset.chk]=c;salvar()}
+ if(t.dataset.cls){const c=D.classif[t.dataset.cls]||{};c[t.dataset.i]=t.value;delete c._conf;D.classif[t.dataset.cls]=c;salvar()}});
+let tLento=null;function salvarLento(){clearTimeout(tLento);tLento=setTimeout(salvar,800)}
+
+// ---------- revisão espaçada ----------
+let revAberta=false;
+function telaRevisao(){
+ const l=devidos(), at=cartoesAtivos().length;
+ if(!at)return`<h1>Revisão</h1><div class="vazio">As perguntas de revisão aparecem depois que você concluir a etapa 2 (Exemplo resolvido) de uma unidade.</div>`;
+ if(!l.length)return`<h1>Revisão</h1><div class="vazio">✓ Nada para revisar hoje.<br>Volte amanhã: as perguntas reaparecem em 1, 3, 7 e 21 dias.</div>`+resumoCaixas();
+ const c=l[0], u=unid(c.u);
+ return`<h1>Revisão</h1><p class="mut">${l.length} para hoje · responda de cabeça antes de ver</p>
+ <div class="card ${c.es?'es':''}">${c.es?'<span class="tag es">Essencial</span>':''}<span class="tag cin">Unidade ${u.n}</span>
+ <p style="font-size:17px"><b>${esc(c.p)}</b></p>
+ <textarea id="rv-txt" rows="3" placeholder="Tente responder aqui (opcional, não é salvo)"></textarea>
+ ${revAberta?`<div class="box ok" style="margin-top:12px">${esc(c.r)}</div><p><b>Você lembrou?</b></p>
+ <button class="btn" onclick="avaliar('${c.id}',true)">Lembrei</button><button class="btn sec" onclick="avaliar('${c.id}',false)">Não lembrei</button>`
+ :`<button class="btn" onclick="revAberta=true;render(true)">Mostrar resposta</button>`}</div>`+resumoCaixas()}
+function resumoCaixas(){const at=cartoesAtivos();if(!at.length)return'';const cx=[0,0,0,0,0];at.forEach(c=>{const s=D.cartoes[c.id];cx[s?Math.min(s.caixa,4):0]++});
+ return`<h2>Como está sua memória</h2><p class="mut">Cada acerto empurra a pergunta para mais longe (1 → 3 → 7 → 21 → 60 dias). Errou, ela volta para amanhã.</p>`+
+ ['Nova / voltou','1 acerto','2 acertos','3 acertos','Firme'].map((t,i)=>`<div class="chk"><span style="width:110px">${t}</span><div class="barra" style="flex:1;margin-top:9px"><i style="width:${at.length?cx[i]/at.length*100:0}%"></i></div><span style="width:24px;text-align:right">${cx[i]}</span></div>`).join('')}
+function avaliar(id,ok){const s=D.cartoes[id]||{caixa:0};s.caixa=ok?Math.min((s.caixa||0)+1,INTERVALOS.length):0;
+ s.proxima=somaDias(ok?INTERVALOS[s.caixa-1]:1);s.vistoEm=Date.now();s.acertos=(s.acertos||0)+(ok?1:0);s.erros=(s.erros||0)+(ok?0:1);D.cartoes[id]=s;revAberta=false;salvar();render()}
+
+// ---------- anotações ----------
+let apagar=null;
+function telaNotas(){
+ let h=`<h1>Anotações</h1><p class="mut">Dúvidas, ideias, coisas que você viu no trabalho. O Claude lê isso para ajustar o curso.</p>
+ <textarea id="nt" rows="4" placeholder="Escreva aqui…"></textarea>
+ <select id="nt-u" style="margin-top:8px"><option value="">Sem unidade</option>${UNIDADES.map(u=>`<option value="${u.id}">Unidade ${u.n} · ${esc(u.titulo)}</option>`).join('')}<option value="duvida">Dúvida para o Claude</option></select>
+ <button class="btn" onclick="addNota()">Salvar anotação</button><div class="erro" id="er-nt"></div>`;
+ if(!D.notas.length)h+=`<div class="vazio">Nenhuma anotação ainda.</div>`;
+ D.notas.slice().reverse().forEach(n=>{const u=unid(n.u);
+  h+=`<div class="card"><div class="mut">${dataBR(n.data)} ${n.u==='duvida'?'<span class="tag es">Dúvida</span>':u?'<span class="tag">Unidade '+u.n+'</span>':''}</div><div class="nota">${esc(n.texto)}</div>
+  <button class="btn ${apagar===n.id?'perigo':'sec'} peq" onclick="apagarNota('${n.id}')">${apagar===n.id?'Confirmar: apagar':'Apagar'}</button></div>`});
+ return h}
+function addNota(){const t=$('#nt').value.trim();if(!t){$('#er-nt').textContent='Escreva algo antes de salvar.';return}
+ D.notas.push({id:'n'+Date.now(),data:hoje(),texto:t,u:$('#nt-u').value});salvar();render()}
+function apagarNota(id){if(apagar!==id){apagar=id;render(true);return}D.notas=D.notas.filter(n=>n.id!==id);apagar=null;salvar();render(true)}
+
+// ---------- ajustes ----------
+function telaAjustes(){
+ const c=CFG||{dono:'',repo:'meus-estudos',chave:''};
+ return`<h1>Ajustes</h1>
+ <div class="card"><h3 style="margin-top:0">Cofre privado (sincronizar celular e PC)</h3>
+ <p class="mut">Seus dados ficam num repositório privado do seu GitHub. A chave fica salva só neste aparelho.</p>
+ <label class="cmp" for="cf-dono">Seu usuário do GitHub</label><input type="text" id="cf-dono" value="${esc(c.dono)}" autocapitalize="off" autocomplete="off" placeholder="ex.: williampassos">
+ <label class="cmp" for="cf-repo">Nome do cofre (repositório privado)</label><input type="text" id="cf-repo" value="${esc(c.repo)}" autocapitalize="off" autocomplete="off">
+ <label class="cmp" for="cf-chave">Chave de acesso</label><input type="password" id="cf-chave" value="${esc(c.chave)}" autocomplete="off" placeholder="github_pat_...">
+ <button class="btn" onclick="salvarCfg()">Salvar e conectar</button>${CFG?'<button class="btn perigo peq" onclick="tirarChave()">Desconectar este aparelho</button>':''}
+ <div class="erro" id="er-cf"></div><div id="ok-cf" class="mut"></div></div>
+ <div class="card"><h3 style="margin-top:0">Backup</h3><p class="mut">Uma cópia de segurança de tudo, num arquivo.</p>
+ <button class="btn sec" onclick="baixarBackup()">Baixar backup</button>
+ <label class="btn sec" style="display:inline-block">Restaurar backup<input type="file" accept=".json,application/json" style="display:none" onchange="restaurar(this)"></label><div class="erro" id="er-bk"></div></div>
+ <p class="mut">Última alteração: ${D.atualizadoEm?new Date(D.atualizadoEm).toLocaleString('pt-BR'):'—'}</p>`}
+async function salvarCfg(){
+ const dono=$('#cf-dono').value.trim(), repo=$('#cf-repo').value.trim(), chave=$('#cf-chave').value.trim();
+ if(!dono||!repo||!chave){$('#er-cf').textContent='Preencha os três campos.';return}
+ CFG={dono,repo,chave};$('#er-cf').textContent='';$('#ok-cf').textContent='Testando a conexão…';
+ try{const r=await fetch('https://api.github.com/repos/'+encodeURIComponent(dono)+'/'+encodeURIComponent(repo),{cache:'no-store',headers:{'Authorization':'Bearer '+chave,'Accept':'application/vnd.github+json'}});
+  if(!r.ok)throw new Error(r.status);const j=await r.json();
+  if(!j.private){CFG=null;$('#ok-cf').textContent='';$('#er-cf').textContent='Esse repositório é PÚBLICO. Por segurança, o cofre precisa ser privado.';return}
+  localStorage.setItem(K_CFG,JSON.stringify(CFG));$('#ok-cf').textContent='Conectado ✓ Sincronizando…';await puxar();$('#ok-cf').textContent='Conectado ✓'}
+ catch(e){CFG=null;$('#ok-cf').textContent='';$('#er-cf').textContent={'401':'A chave não foi aceita. Confira se copiou inteira.','404':'Não achei esse repositório. Confira o usuário, o nome do cofre e se a chave tem acesso a ele.','403':'A chave não tem permissão para esse repositório.'}[e.message]||'Sem conexão. Tente de novo.'}}
+function tirarChave(){localStorage.removeItem(K_CFG);CFG=null;status('','Só neste aparelho');render()}
+function baixarBackup(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));a.download='backup-estudos-'+hoje()+'.json';a.click()}
+function restaurar(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||typeof d!=='object'||!('etapas' in d))throw 0;D=Object.assign(novo(),d);salvar();render();}catch(e){$('#er-bk').textContent='Esse arquivo não parece um backup do site.'}};r.readAsText(f)}
+
+// ---------- roteador ----------
+function render(manterScroll){
+ const y=window.scrollY, p=(location.hash||'#/').slice(2).split('/');let h='',r='inicio';
+ if(p[0]==='u'){const u=unid(p[1]);h=p[2]?telaEtapa(u,Number(p[2])):telaUnidade(u)}
+ else if(p[0]==='revisao'){h=telaRevisao();r='revisao'}
+ else if(p[0]==='notas'){h=telaNotas();r='notas'}
+ else if(p[0]==='ajustes'){h=telaAjustes();r='ajustes'}
+ else h=telaInicio();
+ $('#app').innerHTML=h;
+ document.querySelectorAll('nav.bot a').forEach(a=>a.classList.toggle('at',a.dataset.r===r));
+ atualizaBadge(); window.scrollTo(0,manterScroll?y:0)}
+window.addEventListener('hashchange',()=>{revAberta=false;apagar=null;render()});
+render();
+if(CFG)puxar();
+</script>
+</body>
+</html>
